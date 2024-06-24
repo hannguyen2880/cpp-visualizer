@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="DataStructures">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="DataStructures\AVL">
+      <UniqueIdentifier>{765c065f-b7c6-43e8-bbdb-b952a6279d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures\BST">
+      <UniqueIdentifier>{db93fc12-65ac-48f6-a751-416ecbb9185a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures\Graph">
+      <UniqueIdentifier>{8b4fda41-3909-45f6-9206-e96c6f56f80a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures\HashTable">
+      <UniqueIdentifier>{d173a425-d0bc-453b-a16e-a6ec9d8d1cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures\Heap">
+      <UniqueIdentifier>{1ce101b5-cf3c-4203-84c2-56978ddb5179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures\Tree234">
+      <UniqueIdentifier>{3fe7d7dc-b218-44d6-a2e0-5be4ebb57e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures\Trie">
+      <UniqueIdentifier>{fbc9e383-24d7-4e3d-b97c-fe90364d2f60}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="file_io.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="raygui.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyfiledialogs.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\AVL\AVLTree.cpp">
+      <Filter>DataStructures\AVL</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\BST\BST.cpp">
+      <Filter>DataStructures\BST</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Graph\Graph.cpp">
+      <Filter>DataStructures\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\HashTable\HashTable.cpp">
+      <Filter>DataStructures\HashTable</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Heap\MaxHeap.cpp">
+      <Filter>DataStructures\Heap</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Heap\MinHeap.cpp">
+      <Filter>DataStructures\Heap</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Tree234\Tree234.cpp">
+      <Filter>DataStructures\Tree234</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Trie\Trie.cpp">
+      <Filter>DataStructures\Trie</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="file_io.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="raygui.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyfiledialogs.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\AVL\AVLTree.h">
+      <Filter>DataStructures\AVL</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\BST\BST.h">
+      <Filter>DataStructures\BST</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Graph\Graph.h">
+      <Filter>DataStructures\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\HashTable\HashTable.h">
+      <Filter>DataStructures\HashTable</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Heap\MaxHeap.h">
+      <Filter>DataStructures\Heap</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Heap\MinHeap.h">
+      <Filter>DataStructures\Heap</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Tree234\Tree234.h">
+      <Filter>DataStructures\Tree234</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Trie\Trie.h">
+      <Filter>DataStructures\Trie</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
