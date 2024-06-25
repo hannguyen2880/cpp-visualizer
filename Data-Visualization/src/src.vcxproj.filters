@@ -34,6 +34,9 @@
     <Filter Include="DataStructures\Trie">
       <UniqueIdentifier>{fbc9e383-24d7-4e3d-b97c-fe90364d2f60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Screen">
+      <UniqueIdentifier>{43a4be84-193f-40aa-93d4-b899c216ccd5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,6 +75,12 @@
     <ClCompile Include="DataStructures\Trie\Trie.cpp">
       <Filter>DataStructures\Trie</Filter>
     </ClCompile>
+    <ClCompile Include="Screen\screen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_io.h">
@@ -107,5 +116,19 @@
     <ClInclude Include="DataStructures\Trie\Trie.h">
       <Filter>DataStructures\Trie</Filter>
     </ClInclude>
+    <ClInclude Include="Screen\screen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\background_dark_mode.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

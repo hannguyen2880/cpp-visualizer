@@ -136,8 +136,10 @@
     <ClCompile Include="DataStructures\Tree234\Tree234.cpp" />
     <ClCompile Include="DataStructures\Trie\Trie.cpp" />
     <ClCompile Include="file_io.cpp" />
+    <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="raygui.c" />
+    <ClCompile Include="Screen\screen.cpp" />
     <ClCompile Include="tinyfiledialogs.c" />
   </ItemGroup>
   <ItemGroup>
@@ -150,8 +152,14 @@
     <ClInclude Include="DataStructures\Tree234\Tree234.h" />
     <ClInclude Include="DataStructures\Trie\Trie.h" />
     <ClInclude Include="file_io.h" />
+    <ClInclude Include="Graphic.h" />
     <ClInclude Include="raygui.h" />
+    <ClInclude Include="Screen\screen.h" />
     <ClInclude Include="tinyfiledialogs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\background.png" />
+    <Image Include="Resources\background_dark_mode.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
