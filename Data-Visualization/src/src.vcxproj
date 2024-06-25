@@ -158,8 +158,22 @@
     <ClInclude Include="tinyfiledialogs.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\AVL_background.png" />
+    <Image Include="Resources\AVL_background_dark_mode.png" />
     <Image Include="Resources\background.png" />
     <Image Include="Resources\background_dark_mode.png" />
+    <Image Include="Resources\graph_background.png" />
+    <Image Include="Resources\graph_background_dark.png" />
+    <Image Include="Resources\Hash_background.png" />
+    <Image Include="Resources\Hash_background_dark.png" />
+    <Image Include="Resources\maxHeap_background.png" />
+    <Image Include="Resources\maxHeap_background_dark.png" />
+    <Image Include="Resources\minHeap_background.png" />
+    <Image Include="Resources\minHeap_background_dark.png" />
+    <Image Include="Resources\Tree234_background.png" />
+    <Image Include="Resources\Tree234_background_dark.png" />
+    <Image Include="Resources\Trie_background.png" />
+    <Image Include="Resources\Trie_background_dark.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
