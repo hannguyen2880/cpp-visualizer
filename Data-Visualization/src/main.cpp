@@ -11,19 +11,6 @@
 #define SCREEN_HEIGHT 800
 #define SCREEN_TITLE "DATA STRUCTURE VISUALIZER"
 
-typedef enum {
-    MENU_SCREEN,
-    MENU_DARK_SCREEN,
-    AVL_SCREEN,
-    BST_SCREEN,
-    GRAPH_SCREEN,
-    HASH_SCREEN,
-    TREE234_SCREEN,
-    TRIE_SCREEN,
-    MAXHEAP_SCREEN,
-    MINHEAP_SCREEN,
-} Screen;
-
 int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE);
     Screen currentScreen = MENU_SCREEN;
@@ -31,6 +18,13 @@ int main() {
     Texture2D background_dark = LoadTexture("Resources/background_dark_mode.png");
 
     bool isDarkMode = false;
+    AVLScreenInit();
+    Tree234_ScreenInit();
+    HashScreenInit();
+    GraphScreenInit();
+    TrieScreenInit();
+    maxHeapScreenInit();
+    minHeapScreenInit();
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -104,53 +98,44 @@ int main() {
             break;
         }
         case AVL_SCREEN: {
-            if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Home", isDarkMode)) {
-                currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
-            }
-            AVLScreen(isDarkMode);
+            AVLScreen(currentScreen, isDarkMode);
             break;
         }
         case TREE234_SCREEN: {
-            if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Home", isDarkMode)) {
-                currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
-            }
+            Tree234_Screen(currentScreen, isDarkMode);
             break;
         }
         case HASH_SCREEN: {
-            if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Home", isDarkMode)) {
-                currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
-            }
+            HashScreen(currentScreen, isDarkMode);
             break;
         }
         case GRAPH_SCREEN: {
-            if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Home", isDarkMode)) {
-                currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
-            }
+            GraphScreen(currentScreen, isDarkMode);
             break;
         }
         case TRIE_SCREEN: {
-            if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Home", isDarkMode)) {
-                currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
-            }
+            TrieScreen(currentScreen, isDarkMode);
             break;
         }
         case MAXHEAP_SCREEN: {
-            if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Home", isDarkMode)) {
-                currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
-            }
+            maxHeapScreen(currentScreen, isDarkMode);
             break;
         }
         case MINHEAP_SCREEN: {
-            if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Home", isDarkMode)) {
-                currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
-            }
+            minHeapScreen(currentScreen, isDarkMode);
             break;
         }
         }
 
         EndDrawing();
     }
-
+    AVLScreenUnload();
+    Tree234_ScreenUnload();
+    HashScreenUnload();
+    GraphScreenUnload();
+    TrieScreenUnload();
+    maxHeapScreenUnload();
+    minHeapScreenUnload();
     UnloadTexture(background);
     UnloadTexture(background_dark);
     CloseWindow();

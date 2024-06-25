@@ -130,5 +130,47 @@
     <Image Include="Resources\background_dark_mode.png">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="Resources\AVL_background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\AVL_background_dark_mode.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Tree234_background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Tree234_background_dark.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Hash_background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Hash_background_dark.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\graph_background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\graph_background_dark.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Trie_background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Trie_background_dark.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\maxHeap_background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\maxHeap_background_dark.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\minHeap_background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\minHeap_background_dark.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
