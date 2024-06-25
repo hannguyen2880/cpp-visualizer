@@ -140,6 +140,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="raygui.c" />
     <ClCompile Include="Screen\screen.cpp" />
+    <ClCompile Include="State\AVLState.cpp" />
     <ClCompile Include="tinyfiledialogs.c" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="raygui.h" />
     <ClInclude Include="Screen\screen.h" />
+    <ClInclude Include="State\AVLState.h" />
     <ClInclude Include="tinyfiledialogs.h" />
   </ItemGroup>
   <ItemGroup>

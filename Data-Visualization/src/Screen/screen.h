@@ -1,4 +1,7 @@
 #pragma once
+#include "../Graphic.h"
+#include "../State/AVLState.h"
+
 typedef enum {
     MENU_SCREEN,
     MENU_DARK_SCREEN,

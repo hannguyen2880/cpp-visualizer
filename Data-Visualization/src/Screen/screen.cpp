@@ -1,9 +1,11 @@
 #include "screen.h"
-#include "../Graphic.h"
+
 #define SCREEN_WIDTH 1400
 #define SCREEN_HEIGHT 800
 Texture2D AVL_background;
 Texture2D AVL_background_dark;
+bool AVLInitOption = false;
+bool AVLInsertOption = false;
 
 void AVLScreenInit() {
     AVL_background = LoadTexture("Resources/AVL_background.png");
@@ -16,7 +18,7 @@ void AVLScreenUnload() {
 
 void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     ClearBackground(isDarkMode ? DARKGRAY : LIGHTGRAY);
-
+    
     Texture2D currentBackground = isDarkMode ? AVL_background_dark : AVL_background;
     Rectangle source = Rectangle{ 0, 0, (float)currentBackground.width, (float)currentBackground.height };
     Rectangle dest = Rectangle{ 0, 0, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT };
@@ -25,11 +27,21 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
 
     if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
-        // Initialization logic
+        AVLInitOption = 1 - AVLInitOption;
+        if (AVLInitOption) {
+            AVLInsertOption = false;
+        }
     }
+    AVL_InitOption(AVLInitOption, isDarkMode);
+
     if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
-        // Insert logic
+        AVLInsertOption = 1 - AVLInsertOption;
+        if (AVLInsertOption) {
+            AVLInitOption = false;
+        }
     }
+    AVL_InsertOption(AVLInsertOption, isDarkMode);
+
     if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
         // Delete logic
     }
