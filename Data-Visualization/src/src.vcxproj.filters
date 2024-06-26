@@ -90,6 +90,12 @@
     <ClCompile Include="DataStructures\AVL\AVL_Draw.cpp">
       <Filter>DataStructures\AVL</Filter>
     </ClCompile>
+    <ClCompile Include="State\Tree234State.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Tree234\Tree234_Draw.cpp">
+      <Filter>DataStructures\Tree234</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_io.h">
@@ -136,6 +142,12 @@
     </ClInclude>
     <ClInclude Include="DataStructures\AVL\AVL_Draw.h">
       <Filter>DataStructures\AVL</Filter>
+    </ClInclude>
+    <ClInclude Include="State\Tree234State.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Tree234\Tree234_Draw.h">
+      <Filter>DataStructures\Tree234</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

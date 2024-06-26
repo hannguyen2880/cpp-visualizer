@@ -1,4 +1,11 @@
-﻿  AVLState.cpp
+﻿  Tree234_Draw.cpp
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234_Draw.cpp(16,82): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234_Draw.cpp(16,71): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234_Draw.cpp(16,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234_Draw.cpp(17,95): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234_Draw.cpp(22,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234_Draw.cpp(26,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234_Draw.cpp(26,24): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   src.vcxproj -> D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\x64\Debug\src.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

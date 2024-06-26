@@ -1,6 +1,6 @@
 ﻿#include "AVLState.h"
-
 bool showEmptyMess = false, showRandomMess = false, showFileMess = false;
+
 
 void AVL_InitOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
 	if (!chosen) return;
@@ -49,11 +49,13 @@ bool textBoxEditMode = false;
 
 void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     if (!chosen) return;
-
+    showEmptyMess = false;
+    showFileMess = false;
+    showRandomMess = false;
     GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
     GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
     GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
-    DrawTextInArea("Insert the value in want to insert in the box.", 30, 380, 420, isDarkMode);
+    DrawTextInArea("Input the value in want to insert in the box.", 30, 380, 420, isDarkMode);
 
     if (GuiTextBox(Rectangle{ 200, 180, 100, 50 }, inputText, 200, textBoxEditMode)) {
         textBoxEditMode = 1 - textBoxEditMode;
@@ -62,6 +64,47 @@ void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     if (!textBoxEditMode && inputText[0] != '\0') {
         int value = atoi(inputText);
         tree.insert(value);
+        inputText[0] = '\0';
+    }
+}
+
+void AVL_DeleteOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
+    if (!chosen) return;
+    showEmptyMess = false;
+    showFileMess = false;
+    showRandomMess = false;
+    GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
+    GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    DrawTextInArea("Input the value in want to delete in the box.", 30, 380, 420, isDarkMode);
+
+    if (GuiTextBox(Rectangle{ 200, 240, 100, 50 }, inputText, 200, textBoxEditMode)) {
+        textBoxEditMode = 1 - textBoxEditMode;
+    }
+
+    if (!textBoxEditMode && inputText[0] != '\0') {
+        int value = atoi(inputText);
+        tree.deleteNode(value);
+        inputText[0] = '\0';
+    }
+}
+
+void AVL_SearchOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
+    if (!chosen) return;
+    showEmptyMess = false;
+    showFileMess = false;
+    showRandomMess = false;
+    GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
+    GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    DrawTextInArea("Input the value in want to search in the box.", 30, 380, 420, isDarkMode);
+
+    if (GuiTextBox(Rectangle{ 200, 300, 100, 50 }, inputText, 200, textBoxEditMode)) {
+        textBoxEditMode = 1 - textBoxEditMode;
+    }
+    if (!textBoxEditMode && inputText[0] != '\0') {
+        int value = atoi(inputText);
+        AVLNode* node = tree.searchAVLNode(value);
         inputText[0] = '\0';
     }
 }

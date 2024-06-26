@@ -6,7 +6,11 @@ Texture2D AVL_background;
 Texture2D AVL_background_dark;
 bool AVLInitOption = false;
 bool AVLInsertOption = false, AVLDeleteOption = false, AVLSearchOption = false;
+//
 AVLTree AvlTree;
+Tree234 tree234;
+bool Tree234InitOption = false;
+bool Tree234InsertOption = false, Tree234DeleteOption = false, Tree234SearchOption = false;
 
 void AVLScreenInit() {
     AVL_background = LoadTexture("Resources/AVL_background.png");
@@ -55,6 +59,8 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
             AVLSearchOption = false;
         }
     }
+    AVL_DeleteOption(AVLDeleteOption, isDarkMode, AvlTree);
+
     if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
         AVLSearchOption = 1 - AVLSearchOption;
         if (AVLSearchOption) {
@@ -63,6 +69,8 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
             AVLDeleteOption = false;
         }
     }
+    AVL_SearchOption(AVLSearchOption, isDarkMode, AvlTree);
+
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
         AVLInitOption = false;
         AVLInsertOption = false;
@@ -101,8 +109,15 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
 
     if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
-        // Initialization logic
+        Tree234InitOption = 1 - Tree234InitOption;
+        if (Tree234InitOption) {
+            Tree234InsertOption = false;
+            Tree234DeleteOption = false;
+            Tree234SearchOption = false;
+        }
     }
+    Tree234_InitOption(Tree234InitOption, isDarkMode, tree234);
+
     if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
         // Insert logic
     }
@@ -118,6 +133,7 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    DrawTree234(tree234.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
 
 // Hash Table

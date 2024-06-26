@@ -1,6 +1,7 @@
 #pragma once
 #include "../Graphic.h"
 #include "../State/AVLState.h"
+#include "../State/Tree234State.h"
 #include "../DataStructures/AVL/AVLTree.h"
 
 typedef enum {

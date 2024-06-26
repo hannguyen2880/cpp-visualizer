@@ -51,6 +51,34 @@ void Tree234::insertNonFull(Tree234Node* node, int key) {
         insertNonFull(node->children[pos], key);
     }
 }
+void Tree234::deleteTree(Tree234Node* node) {
+    if (node != nullptr) {
+        for (auto child : node->children) {
+            deleteTree(child);
+        }
+        delete node;
+    }
+}
+
+void Tree234::deleteTree() {
+    deleteTree(root);
+    root = nullptr;
+}
+
+Tree234Node* Tree234::search(Tree234Node* node, int key) {
+    if (node == nullptr) return nullptr;
+    for (int i = 0; i < 3; ++i) {
+        if (node->keys[i] == key) return node;
+        if (node->keys[i] > key || node->keys[i] == -1) {
+            return search(node->children[i], key);
+        }
+    }
+    return search(node->children[3], key);
+}
+
+Tree234Node* Tree234::search(int key) {
+    return search(root, key);
+}
 
 void Tree234::insert(int key) {
     if (!root) {
@@ -59,4 +87,8 @@ void Tree234::insert(int key) {
     } else {
         insertNonFull(root, key);
     }
+}
+
+Tree234Node* Tree234::getRoot() {
+    return root;
 }
