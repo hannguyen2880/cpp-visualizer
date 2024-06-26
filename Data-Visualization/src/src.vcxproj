@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataStructures\AVL\AVLTree.cpp" />
+    <ClCompile Include="DataStructures\AVL\AVL_Draw.cpp" />
     <ClCompile Include="DataStructures\BST\BST.cpp" />
     <ClCompile Include="DataStructures\Graph\Graph.cpp" />
     <ClCompile Include="DataStructures\HashTable\HashTable.cpp" />
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\AVL\AVLTree.h" />
+    <ClInclude Include="DataStructures\AVL\AVL_Draw.h" />
     <ClInclude Include="DataStructures\BST\BST.h" />
     <ClInclude Include="DataStructures\Graph\Graph.h" />
     <ClInclude Include="DataStructures\HashTable\HashTable.h" />

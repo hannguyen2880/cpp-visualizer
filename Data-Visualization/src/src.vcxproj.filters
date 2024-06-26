@@ -87,6 +87,9 @@
     <ClCompile Include="State\AVLState.cpp">
       <Filter>State</Filter>
     </ClCompile>
+    <ClCompile Include="DataStructures\AVL\AVL_Draw.cpp">
+      <Filter>DataStructures\AVL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_io.h">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="State\AVLState.h">
       <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\AVL\AVL_Draw.h">
+      <Filter>DataStructures\AVL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

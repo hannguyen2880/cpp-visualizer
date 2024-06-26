@@ -1,6 +1,7 @@
 #pragma once
 #include "../Graphic.h"
 #include "../State/AVLState.h"
+#include "../DataStructures/AVL/AVLTree.h"
 
 typedef enum {
     MENU_SCREEN,

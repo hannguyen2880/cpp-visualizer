@@ -5,7 +5,8 @@
 Texture2D AVL_background;
 Texture2D AVL_background_dark;
 bool AVLInitOption = false;
-bool AVLInsertOption = false;
+bool AVLInsertOption = false, AVLDeleteOption = false, AVLSearchOption = false;
+AVLTree AvlTree;
 
 void AVLScreenInit() {
     AVL_background = LoadTexture("Resources/AVL_background.png");
@@ -30,30 +31,50 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
         AVLInitOption = 1 - AVLInitOption;
         if (AVLInitOption) {
             AVLInsertOption = false;
+            AVLDeleteOption = false;
+            AVLSearchOption = false;
         }
     }
-    AVL_InitOption(AVLInitOption, isDarkMode);
+    AVL_InitOption(AVLInitOption, isDarkMode, AvlTree);
 
     if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
         AVLInsertOption = 1 - AVLInsertOption;
         if (AVLInsertOption) {
             AVLInitOption = false;
+            AVLDeleteOption = false;
+            AVLSearchOption = false;
         }
     }
-    AVL_InsertOption(AVLInsertOption, isDarkMode);
+    AVL_InsertOption(AVLInsertOption, isDarkMode, AvlTree);
 
     if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
-        // Delete logic
+        AVLDeleteOption = 1 - AVLDeleteOption;
+        if (AVLDeleteOption) {
+            AVLInitOption = false;
+            AVLInsertOption = false;
+            AVLSearchOption = false;
+        }
     }
     if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
-        // Search logic
+        AVLSearchOption = 1 - AVLSearchOption;
+        if (AVLSearchOption) {
+            AVLInitOption = false;
+            AVLInsertOption = false;
+            AVLDeleteOption = false;
+        }
     }
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        AVLInitOption = false;
+        AVLInsertOption = false;
+        AVLDeleteOption = false;
+        AVLSearchOption = false;
+        AvlTree.deleteAVLTree();
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    DrawAVLTree(AvlTree.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
 
 // Tree234

@@ -64,6 +64,14 @@ AVLNode* AVLTree::minValueNode(AVLNode* node) {
     return current;
 }
 
+void AVLTree::deleteTree(AVLNode*& root) {
+    if (root == nullptr) return;
+    deleteTree(root->left);
+    deleteTree(root->right);
+    delete root;
+    root = nullptr;
+}
+
 AVLNode* AVLTree::deleteNode(AVLNode* root, int key) {
     if (root == nullptr) return root;
     if (key < root->key) root->left = deleteNode(root->left, key);
@@ -98,10 +106,30 @@ AVLNode* AVLTree::deleteNode(AVLNode* root, int key) {
     return root;
 }
 
+AVLNode* AVLTree::searchNode(AVLNode* root, int key) {
+    if (root == nullptr) return nullptr;
+    if (key == root->key) return root;
+    if (key < root->key) return searchNode(root->left, key);
+    else return searchNode(root->right, key);
+}
+
 void AVLTree::insert(int key) {
     root = insert(root, key);
 }
 
 void AVLTree::deleteNode(int key) {
     root = deleteNode(root, key);
+}
+
+AVLNode* AVLTree::searchAVLNode(int key) {
+    return searchNode(root, key);
+}
+AVLTree::~AVLTree() {
+    deleteTree(root);
+}
+AVLNode* AVLTree::getRoot() {
+    return root;
+}
+void AVLTree::deleteAVLTree() {
+    deleteTree(root);
 }
