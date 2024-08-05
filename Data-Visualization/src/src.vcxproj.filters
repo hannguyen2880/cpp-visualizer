@@ -48,12 +48,6 @@
     <ClCompile Include="file_io.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="raygui.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyfiledialogs.c">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="DataStructures\AVL\AVLTree.cpp">
       <Filter>DataStructures\AVL</Filter>
     </ClCompile>
@@ -87,24 +81,24 @@
     <ClCompile Include="State\AVLState.cpp">
       <Filter>State</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructures\AVL\AVL_Draw.cpp">
-      <Filter>DataStructures\AVL</Filter>
-    </ClCompile>
     <ClCompile Include="State\Tree234State.cpp">
       <Filter>State</Filter>
     </ClCompile>
     <ClCompile Include="DataStructures\Tree234\Tree234_Draw.cpp">
       <Filter>DataStructures\Tree234</Filter>
     </ClCompile>
+    <ClCompile Include="raygui.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyfiledialogs.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="State\MaxHeapState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_io.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="raygui.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyfiledialogs.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="DataStructures\AVL\AVLTree.h">
@@ -140,14 +134,20 @@
     <ClInclude Include="State\AVLState.h">
       <Filter>State</Filter>
     </ClInclude>
-    <ClInclude Include="DataStructures\AVL\AVL_Draw.h">
-      <Filter>DataStructures\AVL</Filter>
-    </ClInclude>
     <ClInclude Include="State\Tree234State.h">
       <Filter>State</Filter>
     </ClInclude>
     <ClInclude Include="DataStructures\Tree234\Tree234_Draw.h">
       <Filter>DataStructures\Tree234</Filter>
+    </ClInclude>
+    <ClInclude Include="raygui.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyfiledialogs.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="State\MaxHeapState.h">
+      <Filter>State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

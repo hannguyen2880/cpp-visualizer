@@ -23,7 +23,7 @@ void AVLScreenUnload() {
 
 void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     ClearBackground(isDarkMode ? DARKGRAY : LIGHTGRAY);
-    
+
     Texture2D currentBackground = isDarkMode ? AVL_background_dark : AVL_background;
     Rectangle source = Rectangle{ 0, 0, (float)currentBackground.width, (float)currentBackground.height };
     Rectangle dest = Rectangle{ 0, 0, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT };
@@ -249,6 +249,11 @@ void minHeapScreenUnload() {
 }
 // MaxHeap
 Texture2D maxHeap_background, maxHeap_background_dark;
+MaxHeap maxHeap;
+bool maxHeapInitOption = false, maxHeapInsertOption = false, maxHeapDeleteOption = false;
+bool maxHeapGetMaxOption = false, maxHeapGetSizeOption = false;
+
+
 void maxHeapScreenInit() {
     maxHeap_background = LoadTexture("Resources/maxHeap_background.png");
     maxHeap_background_dark = LoadTexture("Resources/maxHeap_background_dark.png");

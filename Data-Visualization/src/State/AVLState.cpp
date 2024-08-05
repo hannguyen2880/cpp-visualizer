@@ -3,8 +3,8 @@ bool showEmptyMess = false, showRandomMess = false, showFileMess = false;
 
 
 void AVL_InitOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
-	if (!chosen) return;
-    
+    if (!chosen) return;
+
     if (DrawCustomButton2(Rectangle{ 180, 120, 180, 50 }, "Empty Tree", isDarkMode)) {
         tree.deleteAVLTree();
         showEmptyMess = true;
@@ -37,7 +37,7 @@ void AVL_InitOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
         }
         showFileMess = true;
     }
-    
+
     if (showFileMess) {
         DrawTextInArea("Your data in the file has been uploaded.", 30, 380, 420, isDarkMode);
         showEmptyMess = false;
@@ -46,6 +46,9 @@ void AVL_InitOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
 }
 char inputText[10] = "\0";
 bool textBoxEditMode = false;
+
+static int stepIndex = 0;
+static bool stepByStepMode = false;
 
 void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     if (!chosen) return;
@@ -57,16 +60,42 @@ void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
     DrawTextInArea("Input the value in want to insert in the box.", 30, 380, 420, isDarkMode);
 
+    static int stepIndex = 0;
+    static bool stepByStepMode = false;
+
     if (GuiTextBox(Rectangle{ 200, 180, 100, 50 }, inputText, 200, textBoxEditMode)) {
         textBoxEditMode = 1 - textBoxEditMode;
     }
 
     if (!textBoxEditMode && inputText[0] != '\0') {
         int value = atoi(inputText);
-        tree.insert(value);
-        inputText[0] = '\0';
+        tree.insertWithSteps(value);
+        stepIndex = 0;
+        stepByStepMode = true;
+        inputText[0] = '\0'; // Clear the input text
+    }
+
+    // Display step-by-step controls
+    if (stepByStepMode && !tree.steps.empty()) {
+        if (GuiButton(Rectangle{ 200, 240, 100, 30 }, "Next Step")) {
+            if (stepIndex < tree.steps.size() - 1) {
+                stepIndex++;
+            }
+        }
+        if (GuiButton(Rectangle{ 200, 280, 100, 30 }, "Prev Step")) {
+            if (stepIndex > 0) {
+                stepIndex--;
+            }
+        }
+        DrawText(tree.steps[stepIndex].c_str(), 200, 320, 20, isDarkMode ? WHITE : BLACK);
+    }
+
+    // Display tree visualization up to current step
+    if (stepByStepMode && stepIndex < tree.steps.size()) {
+        DrawAVLAnimation(tree, stepIndex, 400, 1400, 150, 790, isDarkMode);
     }
 }
+
 
 void AVL_DeleteOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     if (!chosen) return;

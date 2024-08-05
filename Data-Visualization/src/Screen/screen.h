@@ -3,6 +3,7 @@
 #include "../State/AVLState.h"
 #include "../State/Tree234State.h"
 #include "../DataStructures/AVL/AVLTree.h"
+#include "../DataStructures/Heap/MaxHeap.h"
 
 typedef enum {
     MENU_SCREEN,

@@ -15,6 +15,7 @@ public:
     void insert(int key);
     void deleteMin();
     int getMin();
+    int getSize();
 };
 
 #endif

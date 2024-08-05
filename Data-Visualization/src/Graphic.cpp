@@ -82,3 +82,31 @@ void DrawTextInArea(const char* text, int startX, int endX, int startY, bool isD
         y += fontSize + 5;
     }
 }
+/*void DrawAVLAnimation(AVLTree& tree, int stepIndex, int startX, int endX, int startY, int endY, bool isDarkMode) {
+    if (isDarkMode) {
+        ClearBackground(DARKGRAY);
+    }
+    else {
+        ClearBackground(RAYWHITE);
+    }
+
+    // Display step-by-step information
+    DrawText("Step-by-step Insertion Mode", 10, 10, 20, isDarkMode ? LIGHTGRAY : DARKGRAY);
+    if (stepIndex < tree.steps.size()) {
+        DrawText(("Current Step: " + tree.steps[stepIndex]).c_str(), 30, 480, 20, isDarkMode ? LIGHTGRAY : DARKGRAY);
+    }
+
+    // Draw buttons 30 380 420
+    if (GuiButton(Rectangle{ 10, 70, 120, 30 }, "Next Step")) {
+        if (stepIndex < tree.steps.size() - 1) stepIndex++;
+    }
+    if (GuiButton(Rectangle{140, 70, 120, 30 }, "Previous Step")) {
+        if (stepIndex > 0) stepIndex--;
+    }
+    if (GuiButton(Rectangle{270, 70, 120, 30 }, "Run to End")) {
+        stepIndex = tree.steps.size() - 1;
+    }
+
+    // Display the tree with custom parameters
+    DrawAVLTree(tree.getRoot(), startX, endX, startY, endY, isDarkMode);
+}*/

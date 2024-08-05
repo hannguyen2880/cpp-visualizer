@@ -12,5 +12,6 @@ public:
     void insert(int key);
     void deleteMax();
     int getMax();
+    int getSize();
 };
 #endif

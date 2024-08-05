@@ -37,4 +37,8 @@ int MaxHeap::getMax() {
 	return heap.size() ? heap[0] : -1;
 }
 
+int MaxHeap::getSize() {
+	return heap.size();
+}
+
 

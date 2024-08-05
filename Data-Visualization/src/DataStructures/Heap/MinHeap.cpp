@@ -39,3 +39,7 @@ void MinHeap::deleteMin() {
 int MinHeap::getMin() {
     return heap.size() ? heap[0] : -1;
 }
+
+int MinHeap::getSize() {
+    return heap.size();
+}

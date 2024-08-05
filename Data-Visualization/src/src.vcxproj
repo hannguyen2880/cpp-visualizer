@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataStructures\AVL\AVLTree.cpp" />
-    <ClCompile Include="DataStructures\AVL\AVL_Draw.cpp" />
     <ClCompile Include="DataStructures\BST\BST.cpp" />
     <ClCompile Include="DataStructures\Graph\Graph.cpp" />
     <ClCompile Include="DataStructures\HashTable\HashTable.cpp" />
@@ -143,12 +142,12 @@
     <ClCompile Include="raygui.c" />
     <ClCompile Include="Screen\screen.cpp" />
     <ClCompile Include="State\AVLState.cpp" />
+    <ClCompile Include="State\MaxHeapState.cpp" />
     <ClCompile Include="State\Tree234State.cpp" />
     <ClCompile Include="tinyfiledialogs.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\AVL\AVLTree.h" />
-    <ClInclude Include="DataStructures\AVL\AVL_Draw.h" />
     <ClInclude Include="DataStructures\BST\BST.h" />
     <ClInclude Include="DataStructures\Graph\Graph.h" />
     <ClInclude Include="DataStructures\HashTable\HashTable.h" />
@@ -162,6 +161,7 @@
     <ClInclude Include="raygui.h" />
     <ClInclude Include="Screen\screen.h" />
     <ClInclude Include="State\AVLState.h" />
+    <ClInclude Include="State\MaxHeapState.h" />
     <ClInclude Include="State\Tree234State.h" />
     <ClInclude Include="tinyfiledialogs.h" />
   </ItemGroup>
