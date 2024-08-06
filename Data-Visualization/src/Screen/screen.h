@@ -1,9 +1,15 @@
 #pragma once
 #include "../Graphic.h"
+//State
 #include "../State/AVLState.h"
+#include "../State/HeapState.h"
+#include "../State/Tree234State.h"
+
+//Structure
 #include "../State/Tree234State.h"
 #include "../DataStructures/AVL/AVLTree.h"
 #include "../DataStructures/Heap/MaxHeap.h"
+#include "../DataStructures/Heap/MinHeap.h"
 
 typedef enum {
     MENU_SCREEN,

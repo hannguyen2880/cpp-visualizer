@@ -93,7 +93,7 @@
     <ClCompile Include="tinyfiledialogs.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="State\MaxHeapState.cpp">
+    <ClCompile Include="State\HeapState.cpp">
       <Filter>State</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,7 +146,7 @@
     <ClInclude Include="tinyfiledialogs.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="State\MaxHeapState.h">
+    <ClInclude Include="State\HeapState.h">
       <Filter>State</Filter>
     </ClInclude>
   </ItemGroup>
