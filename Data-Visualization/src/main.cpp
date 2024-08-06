@@ -1,6 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include <raylib.h>
-#include "raygui.h"  
+#include "raygui.h" 
 #include "tinyfiledialogs.h"  
 #include "Graphic.h"
 #include "Screen/screen.h"
@@ -29,13 +29,12 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-
+        
         switch (currentScreen) {
         case MENU_SCREEN: {
             Rectangle source = Rectangle{ 0, 0, (float)background.width, (float)background.height };
             Rectangle dest = Rectangle{ 0, 0, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT };
             DrawTexturePro(background, source, dest, Vector2{ 0, 0 }, 0.0f, WHITE);
-
             if (DrawCustomButton(Rectangle{ 1260, 50, 120, 20 }, "Dark Mode", isDarkMode)) {
                 isDarkMode = true;
                 currentScreen = MENU_DARK_SCREEN;

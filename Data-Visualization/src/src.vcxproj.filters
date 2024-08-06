@@ -37,18 +37,15 @@
     <Filter Include="Screen">
       <UniqueIdentifier>{43a4be84-193f-40aa-93d4-b899c216ccd5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="State">
+      <UniqueIdentifier>{5e45cb61-0d3d-4ff6-8818-fc9c420d0e75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="file_io.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="raygui.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyfiledialogs.c">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="DataStructures\AVL\AVLTree.cpp">
@@ -81,15 +78,27 @@
     <ClCompile Include="Graphic.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="State\AVLState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="State\Tree234State.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Tree234\Tree234_Draw.cpp">
+      <Filter>DataStructures\Tree234</Filter>
+    </ClCompile>
+    <ClCompile Include="raygui.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyfiledialogs.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="State\HeapState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_io.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="raygui.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyfiledialogs.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="DataStructures\AVL\AVLTree.h">
@@ -121,6 +130,24 @@
     </ClInclude>
     <ClInclude Include="Graphic.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="State\AVLState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="State\Tree234State.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Tree234\Tree234_Draw.h">
+      <Filter>DataStructures\Tree234</Filter>
+    </ClInclude>
+    <ClInclude Include="raygui.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyfiledialogs.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="State\HeapState.h">
+      <Filter>State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,16 @@
 #include "screen.h"
-#include "../Graphic.h"
+
 #define SCREEN_WIDTH 1400
 #define SCREEN_HEIGHT 800
 Texture2D AVL_background;
 Texture2D AVL_background_dark;
+bool AVLInitOption = false;
+bool AVLInsertOption = false, AVLDeleteOption = false, AVLSearchOption = false;
+//
+AVLTree AvlTree;
+Tree234 tree234;
+bool Tree234InitOption = false;
+bool Tree234InsertOption = false, Tree234DeleteOption = false, Tree234SearchOption = false;
 
 void AVLScreenInit() {
     AVL_background = LoadTexture("Resources/AVL_background.png");
@@ -25,23 +32,57 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
 
     if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
-        // Initialization logic
+        AVLInitOption = 1 - AVLInitOption;
+        if (AVLInitOption) {
+            AVLInsertOption = false;
+            AVLDeleteOption = false;
+            AVLSearchOption = false;
+        }
     }
+    AVL_InitOption(AVLInitOption, isDarkMode, AvlTree);
+
     if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
-        // Insert logic
+        AVLInsertOption = 1 - AVLInsertOption;
+        if (AVLInsertOption) {
+            AVLInitOption = false;
+            AVLDeleteOption = false;
+            AVLSearchOption = false;
+        }
     }
+    AVL_InsertOption(AVLInsertOption, isDarkMode, AvlTree);
+
     if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
-        // Delete logic
+        AVLDeleteOption = 1 - AVLDeleteOption;
+        if (AVLDeleteOption) {
+            AVLInitOption = false;
+            AVLInsertOption = false;
+            AVLSearchOption = false;
+        }
     }
+    AVL_DeleteOption(AVLDeleteOption, isDarkMode, AvlTree);
+
     if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
-        // Search logic
+        AVLSearchOption = 1 - AVLSearchOption;
+        if (AVLSearchOption) {
+            AVLInitOption = false;
+            AVLInsertOption = false;
+            AVLDeleteOption = false;
+        }
     }
+    AVL_SearchOption(AVLSearchOption, isDarkMode, AvlTree);
+
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        AVLInitOption = false;
+        AVLInsertOption = false;
+        AVLDeleteOption = false;
+        AVLSearchOption = false;
+        AvlTree.deleteAVLTree();
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    DrawAVLTree(AvlTree.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
 
 // Tree234
@@ -68,8 +109,15 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
 
     if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
-        // Initialization logic
+        Tree234InitOption = 1 - Tree234InitOption;
+        if (Tree234InitOption) {
+            Tree234InsertOption = false;
+            Tree234DeleteOption = false;
+            Tree234SearchOption = false;
+        }
     }
+    Tree234_InitOption(Tree234InitOption, isDarkMode, tree234);
+
     if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
         // Insert logic
     }
@@ -85,6 +133,7 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    DrawTree234(tree234.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
 
 // Hash Table
@@ -172,8 +221,15 @@ void TrieScreenUnload() {
     UnloadTexture(Trie_background);
     UnloadTexture(Trie_background_dark);
 }
+
+
+//--------------------------------------------------------
 // Min Heap
 Texture2D minHeap_background, minHeap_background_dark;
+MinHeap minHeap;
+bool minHeapInitOption = false, minHeapInsertOption = false, minHeapDeleteOption = false;
+bool minHeapGetTopOption = false, minHeapGetSizeOption = false;
+
 void minHeapScreenInit() {
     minHeap_background = LoadTexture("Resources/minHeap_background.png");
     minHeap_background_dark = LoadTexture("Resources/minHeap_background_dark.png");
@@ -187,12 +243,75 @@ void minHeapScreen(Screen& currentScreen, bool& isDarkMode) {
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
     //...
+    if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
+        minHeapInitOption = 1 - minHeapInitOption;
+        if (minHeapInitOption) {
+            minHeapInsertOption = false;
+            minHeapDeleteOption = false;
+            minHeapGetTopOption = false;
+            minHeapGetSizeOption = false;
+        }
+    }
+    MinHeap_InitOption(minHeapInitOption, isDarkMode, minHeap);
+
+    if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
+        minHeapInsertOption = 1 - minHeapInsertOption;
+        if (minHeapInsertOption) {
+            minHeapInitOption = false;
+            minHeapDeleteOption = false;
+            minHeapGetTopOption = false;
+            minHeapGetSizeOption = false;
+        }
+    }
+    MinHeap_InsertOption(minHeapInsertOption, isDarkMode, minHeap);
+
+    if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
+        minHeapDeleteOption = 1 - minHeapDeleteOption;
+        if (minHeapDeleteOption) {
+            minHeapInitOption = false;
+            minHeapInsertOption = false;
+            minHeapGetTopOption = false;
+            minHeapGetSizeOption = false;
+        }
+    }
+    MinHeap_DeleteOption(minHeapDeleteOption, isDarkMode, minHeap);
+
+    if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Get Top", isDarkMode)) {
+        minHeapGetTopOption = 1 - minHeapGetTopOption;
+        if (minHeapGetTopOption) {
+            minHeapInitOption = false;
+            minHeapInsertOption = false;
+            minHeapDeleteOption = false;
+            minHeapGetSizeOption = false;
+        }
+    }
+    MinHeap_GetTopOption(minHeapGetTopOption, isDarkMode, minHeap);
+
+    if (DrawCustomButton(Rectangle{ 0, 360, 150, 50 }, "Get Size", isDarkMode)) {
+        minHeapGetSizeOption = 1 - minHeapGetSizeOption;
+        if (minHeapGetSizeOption) {
+            minHeapInitOption = false;
+            minHeapInsertOption = false;
+            minHeapDeleteOption = false;
+            minHeapGetTopOption = false;
+        }
+    }
+    MinHeap_GetSizeOption(minHeapGetSizeOption, isDarkMode, minHeap);
+    //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        minHeapInitOption = false;
+        minHeapInsertOption = false;
+        minHeapDeleteOption = false;
+        minHeapGetTopOption = false;
+        minHeapGetSizeOption = false;
+        minHeap.deleteHeap();
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    // Draw Min Heap
+    DrawMinHeap(&minHeap, 400, 1400, 150, 790, isDarkMode);
 }
 void minHeapScreenUnload() {
     UnloadTexture(minHeap_background);
@@ -200,6 +319,11 @@ void minHeapScreenUnload() {
 }
 // MaxHeap
 Texture2D maxHeap_background, maxHeap_background_dark;
+MaxHeap maxHeap;
+bool maxHeapInitOption = false, maxHeapInsertOption = false, maxHeapDeleteOption = false;
+bool maxHeapGetTopOption = false, maxHeapGetSizeOption = false;
+
+
 void maxHeapScreenInit() {
     maxHeap_background = LoadTexture("Resources/maxHeap_background.png");
     maxHeap_background_dark = LoadTexture("Resources/maxHeap_background_dark.png");
@@ -213,15 +337,77 @@ void maxHeapScreen(Screen& currentScreen, bool& isDarkMode) {
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
     //...
+    if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
+        maxHeapInitOption = 1 - maxHeapInitOption;
+        if (maxHeapInitOption) {
+            maxHeapInsertOption = false;
+            maxHeapDeleteOption = false;
+            maxHeapGetTopOption = false;
+            maxHeapGetSizeOption = false;
+        }
+    }
+    MaxHeap_InitOption(maxHeapInitOption, isDarkMode, maxHeap);
+
+    if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
+        maxHeapInsertOption = 1 - maxHeapInsertOption;
+        if (maxHeapInsertOption) {
+            maxHeapInitOption = false;
+            maxHeapDeleteOption = false;
+            maxHeapGetTopOption = false;
+            maxHeapGetSizeOption = false;
+        }
+    }
+    MaxHeap_InsertOption(maxHeapInsertOption, isDarkMode, maxHeap);
+
+    if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
+        maxHeapDeleteOption = 1 - maxHeapDeleteOption;
+        if (maxHeapDeleteOption) {
+            maxHeapInitOption = false;
+            maxHeapInsertOption = false;
+            maxHeapGetTopOption = false;
+            maxHeapGetSizeOption = false;
+        }
+    }
+    MaxHeap_DeleteOption(maxHeapDeleteOption, isDarkMode, maxHeap);
+
+    if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Get Top", isDarkMode)) {
+        maxHeapGetTopOption = 1 - maxHeapGetTopOption;
+        if (maxHeapGetTopOption) {
+            maxHeapInitOption = false;
+            maxHeapInsertOption = false;
+            maxHeapDeleteOption = false;
+            maxHeapGetSizeOption = false;
+        }
+    }
+    MaxHeap_GetTopOption(maxHeapGetTopOption, isDarkMode, maxHeap);
+
+    if (DrawCustomButton(Rectangle{ 0, 360, 150, 50 }, "Get Size", isDarkMode)) {
+        maxHeapGetSizeOption = 1 - maxHeapGetSizeOption;
+        if (maxHeapGetSizeOption) {
+            maxHeapInitOption = false;
+            maxHeapInsertOption = false;
+            maxHeapDeleteOption = false;
+            maxHeapGetTopOption = false;
+        }
+    }
+    MaxHeap_GetSizeOption(maxHeapGetSizeOption, isDarkMode, maxHeap);
+    //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        maxHeapInitOption = false;
+        maxHeapInsertOption = false;
+        maxHeapDeleteOption = false;
+        maxHeapGetTopOption = false;
+        maxHeapGetSizeOption = false;
+        maxHeap.deleteHeap();
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    // Draw Max Heap
+    DrawMaxHeap(&maxHeap, 400, 1400, 150, 790, isDarkMode);
 }
 void maxHeapScreenUnload() {
     UnloadTexture(maxHeap_background);
     UnloadTexture(maxHeap_background_dark);
 }
-
