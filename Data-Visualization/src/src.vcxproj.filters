@@ -40,6 +40,21 @@
     <Filter Include="State">
       <UniqueIdentifier>{5e45cb61-0d3d-4ff6-8818-fc9c420d0e75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{c2baa083-11a2-40ca-810c-053864b4b3b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sample_data">
+      <UniqueIdentifier>{46a56041-c343-42b2-9f58-fb6b4b5fd2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\visualizing_steps">
+      <UniqueIdentifier>{02dafb26-c3aa-465f-af22-d72ade211673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\visualizing_steps\Heap">
+      <UniqueIdentifier>{2f490af6-ed38-405a-abe7-234c0b6213bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\fonts">
+      <UniqueIdentifier>{8d4b92f3-71be-477a-a401-61bce0d32bc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -199,5 +214,54 @@
     <Image Include="Resources\minHeap_background_dark.png">
       <Filter>Resources</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\sample_data\AVL.txt">
+      <Filter>assets\sample_data</Filter>
+    </Text>
+    <Text Include="assets\sample_data\graph.txt">
+      <Filter>assets\sample_data</Filter>
+    </Text>
+    <Text Include="assets\sample_data\hash_table.txt">
+      <Filter>assets\sample_data</Filter>
+    </Text>
+    <Text Include="assets\sample_data\heap.txt">
+      <Filter>assets\sample_data</Filter>
+    </Text>
+    <Text Include="assets\sample_data\trie.txt">
+      <Filter>assets\sample_data</Filter>
+    </Text>
+    <Text Include="assets\visualizing_steps\Heap\maxheap_delete.txt">
+      <Filter>assets\visualizing_steps\Heap</Filter>
+    </Text>
+    <Text Include="assets\visualizing_steps\Heap\maxheap_getsize.txt">
+      <Filter>assets\visualizing_steps\Heap</Filter>
+    </Text>
+    <Text Include="assets\visualizing_steps\Heap\maxheap_gettop.txt">
+      <Filter>assets\visualizing_steps\Heap</Filter>
+    </Text>
+    <Text Include="assets\visualizing_steps\Heap\maxheap_insert.txt">
+      <Filter>assets\visualizing_steps\Heap</Filter>
+    </Text>
+    <Text Include="assets\visualizing_steps\Heap\minheap_delete.txt">
+      <Filter>assets\visualizing_steps\Heap</Filter>
+    </Text>
+    <Text Include="assets\visualizing_steps\Heap\minheap_getsize.txt">
+      <Filter>assets\visualizing_steps\Heap</Filter>
+    </Text>
+    <Text Include="assets\visualizing_steps\Heap\minheap_gettop.txt">
+      <Filter>assets\visualizing_steps\Heap</Filter>
+    </Text>
+    <Text Include="assets\visualizing_steps\Heap\minheap_insert.txt">
+      <Filter>assets\visualizing_steps\Heap</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\Consolas-Bold.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+    <Font Include="assets\fonts\PTSans-Bold.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

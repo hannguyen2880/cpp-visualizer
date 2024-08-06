@@ -25,3 +25,7 @@ bool HashTable::searchItem(int key) {
     }
     return false;
 }
+
+std::vector<std::list<int>> HashTable::getTable() {
+    return table;
+}

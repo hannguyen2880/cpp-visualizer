@@ -4,13 +4,11 @@
 #define SCREEN_HEIGHT 800
 Texture2D AVL_background;
 Texture2D AVL_background_dark;
+
+//---------------------------AVL TREE------------------------------
+AVLTree AvlTree;
 bool AVLInitOption = false;
 bool AVLInsertOption = false, AVLDeleteOption = false, AVLSearchOption = false;
-//
-AVLTree AvlTree;
-Tree234 tree234;
-bool Tree234InitOption = false;
-bool Tree234InsertOption = false, Tree234DeleteOption = false, Tree234SearchOption = false;
 
 void AVLScreenInit() {
     AVL_background = LoadTexture("Resources/AVL_background.png");
@@ -84,9 +82,12 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     }
     DrawAVLTree(AvlTree.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
-
+//------------------TREE234---------------------
 // Tree234
 Texture2D Tree234_background, Tree234_background_dark;
+Tree234 tree234;
+bool Tree234InitOption = false;
+bool Tree234InsertOption = false, Tree234DeleteOption = false, Tree234SearchOption = false;
 
 void Tree234_ScreenInit() {
     Tree234_background = LoadTexture("Resources/Tree234_background.png");
@@ -119,15 +120,40 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
     Tree234_InitOption(Tree234InitOption, isDarkMode, tree234);
 
     if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
-        // Insert logic
+        Tree234InsertOption = 1 - Tree234InsertOption;
+        if (Tree234InsertOption) {
+            Tree234InitOption = false;
+            Tree234DeleteOption = false;
+            Tree234SearchOption = false;
+        }
     }
+    Tree234_InsertOption(Tree234InsertOption, isDarkMode, tree234);
+
     if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
-        // Delete logic
+        Tree234DeleteOption = 1 - Tree234DeleteOption;
+        if (Tree234DeleteOption) {
+            Tree234InitOption = false;
+            Tree234InsertOption = false;
+            Tree234SearchOption = false;
+        }
     }
+    Tree234_DeleteOption(Tree234DeleteOption, isDarkMode, tree234);
+
     if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
-        // Search logic
+        Tree234SearchOption = 1 - Tree234SearchOption;
+        if (Tree234SearchOption) {
+            Tree234InitOption = false;
+            Tree234InsertOption = false;
+            Tree234DeleteOption = false;
+        }
     }
+    Tree234_SearchOption(Tree234SearchOption, isDarkMode, tree234);
+
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        Tree234InitOption = false;
+        Tree234InsertOption = false;
+        Tree234DeleteOption = false;
+        Tree234SearchOption = false;
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
@@ -136,7 +162,7 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
     DrawTree234(tree234.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
 
-// Hash Table
+// ------------------ HASH TABLE ----------------------
 Texture2D Hash_background, Hash_background_dark;
 void HashScreenInit() {
     Hash_background = LoadTexture("Resources/Hash_background.png");
@@ -152,6 +178,8 @@ void HashScreen(Screen& currentScreen, bool& isDarkMode) {
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
     //...
+
+    //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
@@ -165,7 +193,7 @@ void HashScreenUnload() {
     UnloadTexture(Hash_background_dark);
 }
 
-// Graph
+// ------------------GRAPH----------------------
 Texture2D Graph_background, Graph_background_dark;
 void GraphScreenInit() {
     Graph_background = LoadTexture("Resources/graph_background.png");
@@ -186,6 +214,8 @@ void GraphScreen(Screen& currentScreen, bool& isDarkMode) {
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
     //...
+
+    //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
@@ -193,8 +223,8 @@ void GraphScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
 }
+// ---------------TRIE----------------------
 
-// Trie
 Texture2D Trie_background, Trie_background_dark;
 void TrieScreenInit() {
     Trie_background = LoadTexture("Resources/Trie_background.png");
@@ -208,6 +238,8 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
     DrawTexturePro(currentBackground, source, dest, Vector2{ 0, 0 }, 0.0f, WHITE);
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
+    //...
+
     //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
@@ -223,8 +255,8 @@ void TrieScreenUnload() {
 }
 
 
-//--------------------------------------------------------
-// Min Heap
+// ---------------MIN HEAP----------------------
+
 Texture2D minHeap_background, minHeap_background_dark;
 MinHeap minHeap;
 bool minHeapInitOption = false, minHeapInsertOption = false, minHeapDeleteOption = false;
@@ -311,12 +343,13 @@ void minHeapScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
     // Draw Min Heap
-    DrawMinHeap(&minHeap, 400, 1400, 150, 790, isDarkMode);
+    DrawMinHeap(&minHeap, 400, 1400, 150, 650, isDarkMode);
 }
 void minHeapScreenUnload() {
     UnloadTexture(minHeap_background);
     UnloadTexture(minHeap_background_dark);
 }
+// ---------------MAX HEAP----------------------
 // MaxHeap
 Texture2D maxHeap_background, maxHeap_background_dark;
 MaxHeap maxHeap;
@@ -405,7 +438,7 @@ void maxHeapScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
     // Draw Max Heap
-    DrawMaxHeap(&maxHeap, 400, 1400, 150, 790, isDarkMode);
+    DrawMaxHeap(&maxHeap, 400, 1400, 150, 650, isDarkMode);
 }
 void maxHeapScreenUnload() {
     UnloadTexture(maxHeap_background);

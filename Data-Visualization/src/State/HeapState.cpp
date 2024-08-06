@@ -71,6 +71,7 @@ void MaxHeap_InsertOption(bool& chosen, bool isDarkMode, MaxHeap& heap) {
 		int value = atoi(inputTextMaxHeap);
 		heap.insert(value);
 		inputTextMaxHeap[0] = '\0';
+		DrawTextInArea("Input the value in want to insert in the box.", 30, 380, 480, isDarkMode);
 	}
 }
 void MaxHeap_DeleteOption(bool& chosen, bool isDarkMode, MaxHeap& heap) {
@@ -104,9 +105,16 @@ void MaxHeap_GetTopOption(bool& chosen, bool isDarkMode, MaxHeap& heap) {
 	GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
 	GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
 	GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
-	std::string txt = "The top of current heap is " + std::to_string(heap.getHeap()[0]);
-	const char* text = txt.c_str();
-	DrawTextInArea(text, 30, 380, 480, isDarkMode);
+	if (heap.getSize() == 0) {
+		std::string txt = "The heap is empty now!";
+		const char* text = txt.c_str();
+		DrawTextInArea(text, 30, 380, 480, isDarkMode);
+	}
+	else {
+		std::string txt = "The top of current heap is " + std::to_string(heap.getHeap()[0]);
+		const char* text = txt.c_str();
+		DrawTextInArea(text, 30, 380, 480, isDarkMode);
+	}
 }
 void MaxHeap_GetSizeOption(bool& chosen, bool isDarkMode, MaxHeap& heap) {
 	if (!chosen) return;
@@ -206,9 +214,16 @@ void MinHeap_GetTopOption(bool& chosen, bool isDarkMode, MinHeap& heap) {
 	GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
 	GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
 	GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
-	std::string txt = "The top of current heap is " + std::to_string(heap.getHeap()[0]);
-	const char* text = txt.c_str();
-	DrawTextInArea(text, 30, 380, 480, isDarkMode);
+	if (heap.getSize() == 0) {
+		std::string txt = "The heap is empty now!";
+		const char* text = txt.c_str();
+		DrawTextInArea(text, 30, 380, 480, isDarkMode);
+	}
+	else {
+		std::string txt = "The top of current heap is " + std::to_string(heap.getHeap()[0]);
+		const char* text = txt.c_str();
+		DrawTextInArea(text, 30, 380, 480, isDarkMode);
+	}	
 }
 void MinHeap_GetSizeOption(bool& chosen, bool isDarkMode, MinHeap& heap) {
 	if (!chosen) return;

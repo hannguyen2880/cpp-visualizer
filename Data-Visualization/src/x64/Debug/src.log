@@ -1,4 +1,7 @@
-﻿  HeapState.cpp
+﻿  Tree234.cpp
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234.cpp(98,15): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234.cpp(191,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\src\DataStructures\Tree234\Tree234.cpp(196,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   src.vcxproj -> D:\APCS\CS163\APCS-CS163-Data-Visualization\Data-Visualization\x64\Debug\src.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

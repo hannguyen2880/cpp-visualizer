@@ -5,6 +5,7 @@
 #include "../file_io.h"
 #include "../DataStructures/Heap/MaxHeap.h"
 #include "../DataStructures/Heap/MinHeap.h"
+#include "../Graphic.h"
 #include <string>
 #include <iostream>
 // max heap

@@ -113,5 +113,5 @@ void DrawMaxHeap(MaxHeap* heap, int startX, int endX, int startY, int endY, bool
 
             drawLine(parentX, parentY, x, y, isDarkMode);
         }
-    }
+    }    
 }
