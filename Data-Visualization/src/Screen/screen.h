@@ -4,12 +4,16 @@
 #include "../State/AVLState.h"
 #include "../State/HeapState.h"
 #include "../State/Tree234State.h"
+#include "../State/HashState.h"
+#include "../State/TrieState.h"
 
 //Structure
 #include "../State/Tree234State.h"
 #include "../DataStructures/AVL/AVLTree.h"
 #include "../DataStructures/Heap/MaxHeap.h"
 #include "../DataStructures/Heap/MinHeap.h"
+#include "../DataStructures/HashTable/HashTable.h"
+#include "../DataStructures/Trie/Trie.h"
 
 typedef enum {
     MENU_SCREEN,

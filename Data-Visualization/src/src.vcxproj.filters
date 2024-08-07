@@ -111,6 +111,12 @@
     <ClCompile Include="State\HeapState.cpp">
       <Filter>State</Filter>
     </ClCompile>
+    <ClCompile Include="State\HashState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="State\TrieState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_io.h">
@@ -162,6 +168,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="State\HeapState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="State\HashState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="State\TrieState.h">
       <Filter>State</Filter>
     </ClInclude>
   </ItemGroup>

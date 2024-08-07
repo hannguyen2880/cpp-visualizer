@@ -142,8 +142,10 @@
     <ClCompile Include="raygui.c" />
     <ClCompile Include="Screen\screen.cpp" />
     <ClCompile Include="State\AVLState.cpp" />
+    <ClCompile Include="State\HashState.cpp" />
     <ClCompile Include="State\HeapState.cpp" />
     <ClCompile Include="State\Tree234State.cpp" />
+    <ClCompile Include="State\TrieState.cpp" />
     <ClCompile Include="tinyfiledialogs.c" />
   </ItemGroup>
   <ItemGroup>
@@ -161,8 +163,10 @@
     <ClInclude Include="raygui.h" />
     <ClInclude Include="Screen\screen.h" />
     <ClInclude Include="State\AVLState.h" />
+    <ClInclude Include="State\HashState.h" />
     <ClInclude Include="State\HeapState.h" />
     <ClInclude Include="State\Tree234State.h" />
+    <ClInclude Include="State\TrieState.h" />
     <ClInclude Include="tinyfiledialogs.h" />
   </ItemGroup>
   <ItemGroup>
