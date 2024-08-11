@@ -15,6 +15,7 @@ public:
     void insertItem(int key);
     void deleteItem(int key);
     bool searchItem(int key);
+    std::vector<std::list<int>> getTable();
 };
 
 #endif

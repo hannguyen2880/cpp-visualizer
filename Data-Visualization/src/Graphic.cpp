@@ -82,31 +82,42 @@ void DrawTextInArea(const char* text, int startX, int endX, int startY, bool isD
         y += fontSize + 5;
     }
 }
-/*void DrawAVLAnimation(AVLTree& tree, int stepIndex, int startX, int endX, int startY, int endY, bool isDarkMode) {
-    if (isDarkMode) {
-        ClearBackground(DARKGRAY);
-    }
-    else {
-        ClearBackground(RAYWHITE);
-    }
 
-    // Display step-by-step information
-    DrawText("Step-by-step Insertion Mode", 10, 10, 20, isDarkMode ? LIGHTGRAY : DARKGRAY);
-    if (stepIndex < tree.steps.size()) {
-        DrawText(("Current Step: " + tree.steps[stepIndex]).c_str(), 30, 480, 20, isDarkMode ? LIGHTGRAY : DARKGRAY);
-    }
+std::vector<std::string> SplitTextIntoLines(const char* text, int maxWidth, int fontSize, Font font) {
+    std::vector<std::string> lines;
+    std::istringstream words(text);
+    std::string word;
+    std::string line;
 
-    // Draw buttons 30 380 420
-    if (GuiButton(Rectangle{ 10, 70, 120, 30 }, "Next Step")) {
-        if (stepIndex < tree.steps.size() - 1) stepIndex++;
+    while (words >> word) {
+        if (MeasureTextEx(font, (line + word).c_str(), fontSize, 1).x > maxWidth) {
+            lines.push_back(line);
+            line = word + " ";
+        }
+        else {
+            line += word + " ";
+        }
     }
-    if (GuiButton(Rectangle{140, 70, 120, 30 }, "Previous Step")) {
-        if (stepIndex > 0) stepIndex--;
+    if (!line.empty()) {
+        lines.push_back(line);
     }
-    if (GuiButton(Rectangle{270, 70, 120, 30 }, "Run to End")) {
-        stepIndex = tree.steps.size() - 1;
-    }
+    return lines;
+}
 
-    // Display the tree with custom parameters
-    DrawAVLTree(tree.getRoot(), startX, endX, startY, endY, isDarkMode);
-}*/
+void DrawTextInArea2(const char* text, int startX, int endX, int startY, bool isDarkMode, Font font) {
+    int maxWidth = endX - startX;
+    int fontSize = 20;
+    Color textColor = isDarkMode ? WHITE : BLACK;
+    Color rectColor = isDarkMode ? DARKGRAY : LIGHTGRAY;
+    std::vector<std::string> lines = SplitTextIntoLines(text, maxWidth, fontSize, font);
+
+    int y = startY;
+    for (const std::string& line : lines) {
+        Vector2 textSize = MeasureTextEx(font, line.c_str(), fontSize, 1);
+        DrawRectangle(startX - 5, y - 5, textSize.x + 10, fontSize + 10, rectColor);
+        Vector2 position = { startX, y };
+        DrawTextEx(font, line.c_str(), position, fontSize, 1, textColor);
+        // DrawTextEx(Font font, const char *text, Vector2 position, float fontSize, float spacing, Color tint);
+        y += fontSize + 15;
+    }
+}

@@ -2,6 +2,8 @@
 #define TREE234_H
 
 #include <vector>
+#include <raylib.h>
+#include <algorithm>
 
 class Tree234Node {
 public:
@@ -30,6 +32,15 @@ private:
     void insertNonFull(Tree234Node* node, int key);
     void deleteTree(Tree234Node* node);
     Tree234Node* search(Tree234Node* node, int key);
+    void deleteKey(Tree234Node* node, int key);
+    void deleteFromLeaf(Tree234Node* node, int index);
+    void deleteFromNonLeaf(Tree234Node* node, int index);
+    int getPredecessor(Tree234Node* node, int index);
+    int getSuccessor(Tree234Node* node, int index);
+    void fill(Tree234Node* node, int index);
+    void borrowFromPrev(Tree234Node* node, int index);
+    void borrowFromNext(Tree234Node* node, int index);
+    void merge(Tree234Node* node, int index);
 
 public:
     Tree234() : root(nullptr) {}
@@ -38,6 +49,7 @@ public:
     Tree234Node* getRoot();
     void deleteTree();
     Tree234Node* search(int key);
+    void deleteNode(int key);
 };
 
 #endif

@@ -142,8 +142,11 @@
     <ClCompile Include="raygui.c" />
     <ClCompile Include="Screen\screen.cpp" />
     <ClCompile Include="State\AVLState.cpp" />
+    <ClCompile Include="State\GraphState.cpp" />
+    <ClCompile Include="State\HashState.cpp" />
     <ClCompile Include="State\HeapState.cpp" />
     <ClCompile Include="State\Tree234State.cpp" />
+    <ClCompile Include="State\TrieState.cpp" />
     <ClCompile Include="tinyfiledialogs.c" />
   </ItemGroup>
   <ItemGroup>
@@ -161,8 +164,11 @@
     <ClInclude Include="raygui.h" />
     <ClInclude Include="Screen\screen.h" />
     <ClInclude Include="State\AVLState.h" />
+    <ClInclude Include="State\GraphState.h" />
+    <ClInclude Include="State\HashState.h" />
     <ClInclude Include="State\HeapState.h" />
     <ClInclude Include="State\Tree234State.h" />
+    <ClInclude Include="State\TrieState.h" />
     <ClInclude Include="tinyfiledialogs.h" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +188,25 @@
     <Image Include="Resources\Tree234_background_dark.png" />
     <Image Include="Resources\Trie_background.png" />
     <Image Include="Resources\Trie_background_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\sample_data\AVL.txt" />
+    <Text Include="assets\sample_data\graph.txt" />
+    <Text Include="assets\sample_data\hash_table.txt" />
+    <Text Include="assets\sample_data\heap.txt" />
+    <Text Include="assets\sample_data\trie.txt" />
+    <Text Include="assets\visualizing_steps\Heap\maxheap_delete.txt" />
+    <Text Include="assets\visualizing_steps\Heap\maxheap_getsize.txt" />
+    <Text Include="assets\visualizing_steps\Heap\maxheap_gettop.txt" />
+    <Text Include="assets\visualizing_steps\Heap\maxheap_insert.txt" />
+    <Text Include="assets\visualizing_steps\Heap\minheap_delete.txt" />
+    <Text Include="assets\visualizing_steps\Heap\minheap_getsize.txt" />
+    <Text Include="assets\visualizing_steps\Heap\minheap_gettop.txt" />
+    <Text Include="assets\visualizing_steps\Heap\minheap_insert.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\Consolas-Bold.ttf" />
+    <Font Include="assets\fonts\PTSans-Bold.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

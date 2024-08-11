@@ -44,3 +44,13 @@ void Tree234_InitOption(bool& chosen, bool isDarkMode, Tree234& tree) {
         showRandomMess234 = false;
     }
 }
+
+void Tree234_InsertOption(bool& chosen, bool isDarkMode, Tree234& tree) {
+    if (!chosen) return;
+}
+void Tree234_DeleteOption(bool& chosen, bool isDarkMode, Tree234& tree) {
+    if (!chosen) return;
+}
+void Tree234_SearchOption(bool& chosen, bool isDarkMode, Tree234& tree) {
+    if (!chosen) return;
+}

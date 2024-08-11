@@ -4,13 +4,11 @@
 #define SCREEN_HEIGHT 800
 Texture2D AVL_background;
 Texture2D AVL_background_dark;
+
+//---------------------------AVL TREE------------------------------
+AVLTree AvlTree;
 bool AVLInitOption = false;
 bool AVLInsertOption = false, AVLDeleteOption = false, AVLSearchOption = false;
-//
-AVLTree AvlTree;
-Tree234 tree234;
-bool Tree234InitOption = false;
-bool Tree234InsertOption = false, Tree234DeleteOption = false, Tree234SearchOption = false;
 
 void AVLScreenInit() {
     AVL_background = LoadTexture("Resources/AVL_background.png");
@@ -84,9 +82,12 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     }
     DrawAVLTree(AvlTree.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
-
+//------------------TREE234---------------------
 // Tree234
 Texture2D Tree234_background, Tree234_background_dark;
+Tree234 tree234;
+bool Tree234InitOption = false;
+bool Tree234InsertOption = false, Tree234DeleteOption = false, Tree234SearchOption = false;
 
 void Tree234_ScreenInit() {
     Tree234_background = LoadTexture("Resources/Tree234_background.png");
@@ -119,15 +120,40 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
     Tree234_InitOption(Tree234InitOption, isDarkMode, tree234);
 
     if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
-        // Insert logic
+        Tree234InsertOption = 1 - Tree234InsertOption;
+        if (Tree234InsertOption) {
+            Tree234InitOption = false;
+            Tree234DeleteOption = false;
+            Tree234SearchOption = false;
+        }
     }
+    Tree234_InsertOption(Tree234InsertOption, isDarkMode, tree234);
+
     if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
-        // Delete logic
+        Tree234DeleteOption = 1 - Tree234DeleteOption;
+        if (Tree234DeleteOption) {
+            Tree234InitOption = false;
+            Tree234InsertOption = false;
+            Tree234SearchOption = false;
+        }
     }
+    Tree234_DeleteOption(Tree234DeleteOption, isDarkMode, tree234);
+
     if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
-        // Search logic
+        Tree234SearchOption = 1 - Tree234SearchOption;
+        if (Tree234SearchOption) {
+            Tree234InitOption = false;
+            Tree234InsertOption = false;
+            Tree234DeleteOption = false;
+        }
     }
+    Tree234_SearchOption(Tree234SearchOption, isDarkMode, tree234);
+
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        Tree234InitOption = false;
+        Tree234InsertOption = false;
+        Tree234DeleteOption = false;
+        Tree234SearchOption = false;
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
@@ -136,8 +162,13 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
     DrawTree234(tree234.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
 
-// Hash Table
+// ------------------ HASH TABLE ----------------------
 Texture2D Hash_background, Hash_background_dark;
+HashTable hashtable(30);
+
+bool HashInitOption = false;
+bool HashInsertOption = false, HashDeleteOption = false, HashSearchOption = false;
+
 void HashScreenInit() {
     Hash_background = LoadTexture("Resources/Hash_background.png");
     Hash_background_dark = LoadTexture("Resources/Hash_background_dark.png");
@@ -152,12 +183,58 @@ void HashScreen(Screen& currentScreen, bool& isDarkMode) {
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
     //...
+    if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
+        HashInitOption = 1 - HashInitOption;
+        if (HashInitOption) {
+            HashInsertOption = false;
+            HashDeleteOption = false;
+            HashSearchOption = false;
+        }
+    }
+    Hash_InitOption(HashInitOption, isDarkMode, hashtable);
+
+    if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
+        HashInsertOption = 1 - HashInsertOption;
+        if (HashInsertOption) {
+            HashInitOption = false;
+            HashDeleteOption = false;
+            HashSearchOption = false;
+        }
+    }
+    Hash_InsertOption(HashInsertOption, isDarkMode, hashtable);
+
+    if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
+        HashDeleteOption = 1 - HashDeleteOption;
+        if (HashDeleteOption) {
+            HashInitOption = false;
+            HashInsertOption = false;
+            HashSearchOption = false;
+        }
+    }
+    Hash_DeleteOption(HashDeleteOption, isDarkMode, hashtable);
+
+    if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
+        HashSearchOption = 1 - HashSearchOption;
+        if (HashSearchOption) {
+            HashInitOption = false;
+            HashInsertOption = false;
+            HashDeleteOption = false;
+        }
+    }
+    Hash_SearchOption(HashSearchOption, isDarkMode, hashtable);
+    //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        HashInitOption = false;
+        HashInsertOption = false;
+        HashDeleteOption = false;
+        HashSearchOption = false;
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    // Draw current hash table
+    //.....
 }
 
 void HashScreenUnload() {
@@ -165,8 +242,11 @@ void HashScreenUnload() {
     UnloadTexture(Hash_background_dark);
 }
 
-// Graph
+// ------------------GRAPH----------------------
 Texture2D Graph_background, Graph_background_dark;
+Graph graph;
+bool graphInitOption = false, connected_component_Option = false, mst_Option = false;
+
 void GraphScreenInit() {
     Graph_background = LoadTexture("Resources/graph_background.png");
     Graph_background_dark = LoadTexture("Resources/graph_background_dark.png");
@@ -186,16 +266,53 @@ void GraphScreen(Screen& currentScreen, bool& isDarkMode) {
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
     //...
+    if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
+        graphInitOption = 1 - graphInitOption;
+        if (graphInitOption) {
+            connected_component_Option = false;
+            mst_Option = false;
+        }
+    }
+    Graph_InitOption(HashInitOption, isDarkMode, graph);
+
+    if (DrawCustomButton(Rectangle{ 0, 360, 300, 50 }, "Connected Components", isDarkMode)) {
+        connected_component_Option = 1 - connected_component_Option;
+        if (connected_component_Option) {
+            graphInitOption = false;
+            mst_Option = false;
+        }
+    }
+    ConnectedComponent_Option(connected_component_Option, isDarkMode, graph);
+
+    if (DrawCustomButton(Rectangle{ 0, 480, 300, 50 }, "Minimum Spanning Tree", isDarkMode)) {
+        mst_Option = 1 - mst_Option;
+        if (mst_Option) {
+            graphInitOption = false;
+            connected_component_Option = false;
+        }
+    }
+    MST_Option(mst_Option, isDarkMode, graph);
+    //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        graphInitOption = false;
+        connected_component_Option = false;
+        mst_Option = false;
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    // Draw current graph
+    //...
 }
 
-// Trie
+// ---------------TRIE----------------------
+
 Texture2D Trie_background, Trie_background_dark;
+Trie trie;
+bool TrieInitOption = false;
+bool TrieInsertOption = false, TrieDeleteOption = false, TrieSearchOption = false;
+
 void TrieScreenInit() {
     Trie_background = LoadTexture("Resources/Trie_background.png");
     Trie_background_dark = LoadTexture("Resources/Trie_background_dark.png");
@@ -209,12 +326,58 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
     //...
+    if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
+        TrieInitOption = 1 - TrieInitOption;
+        if (TrieInitOption) {
+            TrieInsertOption = false;
+            TrieDeleteOption = false;
+            TrieSearchOption = false;
+        }
+    }
+    Trie_InitOption(TrieInitOption, isDarkMode, trie);
+
+    if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
+        TrieInsertOption = 1 - TrieInsertOption;
+        if (TrieInsertOption) {
+            TrieInitOption = false;
+            TrieDeleteOption = false;
+            TrieSearchOption = false;
+        }
+    }
+    Trie_InsertOption(TrieInsertOption, isDarkMode, trie);
+
+    if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
+        TrieInsertOption = 1 - TrieInsertOption;
+        if (TrieInsertOption) {
+            TrieInitOption = false;
+            TrieDeleteOption = false;
+            TrieSearchOption = false;
+        }
+    }
+    Trie_InsertOption(TrieInsertOption, isDarkMode, trie);
+
+    if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Search", isDarkMode)) {
+        TrieSearchOption = 1 - TrieSearchOption;
+        if (TrieSearchOption) {
+            TrieInitOption = false;
+            TrieInsertOption = false;
+            TrieDeleteOption = false;
+        }
+    }
+    Trie_SearchOption(TrieInsertOption, isDarkMode, trie);
+    //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        TrieInitOption = false;
+        TrieInsertOption = false;
+        TrieDeleteOption = false;
+        TrieSearchOption = false;
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    // Draw Trie
+    //.......
 }
 
 void TrieScreenUnload() {
@@ -222,9 +385,8 @@ void TrieScreenUnload() {
     UnloadTexture(Trie_background_dark);
 }
 
+// ---------------MIN HEAP----------------------
 
-//--------------------------------------------------------
-// Min Heap
 Texture2D minHeap_background, minHeap_background_dark;
 MinHeap minHeap;
 bool minHeapInitOption = false, minHeapInsertOption = false, minHeapDeleteOption = false;
@@ -311,12 +473,13 @@ void minHeapScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
     // Draw Min Heap
-    DrawMinHeap(&minHeap, 400, 1400, 150, 790, isDarkMode);
+    DrawMinHeap(&minHeap, 400, 1400, 150, 650, isDarkMode);
 }
 void minHeapScreenUnload() {
     UnloadTexture(minHeap_background);
     UnloadTexture(minHeap_background_dark);
 }
+// ---------------MAX HEAP----------------------
 // MaxHeap
 Texture2D maxHeap_background, maxHeap_background_dark;
 MaxHeap maxHeap;
@@ -405,7 +568,7 @@ void maxHeapScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
     // Draw Max Heap
-    DrawMaxHeap(&maxHeap, 400, 1400, 150, 790, isDarkMode);
+    DrawMaxHeap(&maxHeap, 400, 1400, 150, 650, isDarkMode);
 }
 void maxHeapScreenUnload() {
     UnloadTexture(maxHeap_background);

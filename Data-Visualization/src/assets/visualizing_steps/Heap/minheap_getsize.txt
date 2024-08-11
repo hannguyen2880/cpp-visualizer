@@ -1,0 +1,3 @@
+int MinHeap::getSize() {
+	return heap.size();
+}
