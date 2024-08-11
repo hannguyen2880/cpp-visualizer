@@ -164,7 +164,7 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
 
 // ------------------ HASH TABLE ----------------------
 Texture2D Hash_background, Hash_background_dark;
-HashTable hashtable;
+HashTable hashtable(30);
 
 bool HashInitOption = false;
 bool HashInsertOption = false, HashDeleteOption = false, HashSearchOption = false;
@@ -244,7 +244,8 @@ void HashScreenUnload() {
 
 // ------------------GRAPH----------------------
 Texture2D Graph_background, Graph_background_dark;
-
+Graph graph;
+bool graphInitOption = false, connected_component_Option = false, mst_Option = false;
 
 void GraphScreenInit() {
     Graph_background = LoadTexture("Resources/graph_background.png");
@@ -265,15 +266,46 @@ void GraphScreen(Screen& currentScreen, bool& isDarkMode) {
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
     //...
+    if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
+        graphInitOption = 1 - graphInitOption;
+        if (graphInitOption) {
+            connected_component_Option = false;
+            mst_Option = false;
+        }
+    }
+    Graph_InitOption(HashInitOption, isDarkMode, graph);
 
+    if (DrawCustomButton(Rectangle{ 0, 360, 300, 50 }, "Connected Components", isDarkMode)) {
+        connected_component_Option = 1 - connected_component_Option;
+        if (connected_component_Option) {
+            graphInitOption = false;
+            mst_Option = false;
+        }
+    }
+    ConnectedComponent_Option(connected_component_Option, isDarkMode, graph);
+
+    if (DrawCustomButton(Rectangle{ 0, 480, 300, 50 }, "Minimum Spanning Tree", isDarkMode)) {
+        mst_Option = 1 - mst_Option;
+        if (mst_Option) {
+            graphInitOption = false;
+            connected_component_Option = false;
+        }
+    }
+    MST_Option(mst_Option, isDarkMode, graph);
     //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
+        graphInitOption = false;
+        connected_component_Option = false;
+        mst_Option = false;
         currentScreen = (isDarkMode ? MENU_DARK_SCREEN : MENU_SCREEN);
     }
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
+    // Draw current graph
+    //...
 }
+
 // ---------------TRIE----------------------
 
 Texture2D Trie_background, Trie_background_dark;

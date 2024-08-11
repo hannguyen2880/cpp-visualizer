@@ -6,6 +6,7 @@
 #include "../State/Tree234State.h"
 #include "../State/HashState.h"
 #include "../State/TrieState.h"
+#include "../State/GraphState.h"
 
 //Structure
 #include "../State/Tree234State.h"
@@ -14,6 +15,7 @@
 #include "../DataStructures/Heap/MinHeap.h"
 #include "../DataStructures/HashTable/HashTable.h"
 #include "../DataStructures/Trie/Trie.h"
+#include "../DataStructures/Graph/Graph.h"
 
 typedef enum {
     MENU_SCREEN,
