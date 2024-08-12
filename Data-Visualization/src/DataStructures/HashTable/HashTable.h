@@ -16,6 +16,7 @@ public:
     void deleteItem(int key);
     bool searchItem(int key);
     std::vector<std::list<int>> getTable();
+    void deleteTable();
 };
 
 #endif
