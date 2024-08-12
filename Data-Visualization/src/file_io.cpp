@@ -1,6 +1,4 @@
 #include "file_io.h"
-#include <fstream>
-#include <sstream>
 
 std::vector<int> readDataFromFile(const std::string& filename) {
     std::vector<int> data;
@@ -15,5 +13,32 @@ std::vector<int> readDataFromFile(const std::string& filename) {
         }
     }
 
+    return data;
+}
+
+std::vector<std::string> readDataStringFromFile(const std::string& filename) {
+    std::vector<std::string> data;
+    std::ifstream file(filename);
+    std::string line;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::string value;
+        while (iss >> value) {
+            data.push_back(value);
+        }
+    }
+
+    return data;
+}
+
+std::string getRandomString(int minLength, int maxLength) {
+    std::string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int nLen = GetRandomValue(minLength, maxLength);
+    std::string data = "";
+    for (int i = 0; i < nLen; ++i) {
+        int index = GetRandomValue(0, 52);
+        data.push_back(characters[index]);
+    }
     return data;
 }

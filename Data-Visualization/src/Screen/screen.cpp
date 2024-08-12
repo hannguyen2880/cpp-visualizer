@@ -1,4 +1,4 @@
-#include "screen.h"
+﻿#include "screen.h"
 
 #define SCREEN_WIDTH 1400
 #define SCREEN_HEIGHT 800
@@ -356,7 +356,7 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
     }
     Trie_InsertOption(TrieInsertOption, isDarkMode, trie);
 
-    if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Search", isDarkMode)) {
+    if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
         TrieSearchOption = 1 - TrieSearchOption;
         if (TrieSearchOption) {
             TrieInitOption = false;
@@ -377,7 +377,8 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
     // Draw Trie
-    //.......
+    //DrawTrie(trie.getRoot(), 400, 1400, 150, 790, isDarkMode);
+
 }
 
 void TrieScreenUnload() {

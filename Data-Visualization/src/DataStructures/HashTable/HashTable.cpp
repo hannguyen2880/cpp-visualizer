@@ -29,3 +29,9 @@ bool HashTable::searchItem(int key) {
 std::vector<std::list<int>> HashTable::getTable() {
     return table;
 }
+
+void HashTable::deleteTable() {
+    for (auto& x : table) {
+        x.clear();
+    }
+}
