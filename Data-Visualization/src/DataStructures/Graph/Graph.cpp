@@ -1,10 +1,17 @@
 #include "Graph.h"
 
-void Graph::addEdge(int u, int v) {
-    adjList[u].push_back(v);
-    adjList[v].push_back(u);  // For undirected graph
+void Graph::addEdge(int u, int v, int w) {
+    adjList[u].push_back({w, v});
+    adjList[v].push_back({w, u});  // For undirected graph
 }
 
+int Graph::getVertex() {
+    return nVertex;
+}
+int Graph::getEdge() {
+    return nEdge;
+}
+/*
 void Graph::BFS(int start) {
     std::unordered_map<int, bool> visited;
     std::queue<int> q;
@@ -25,4 +32,8 @@ void Graph::BFS(int start) {
         }
     }
     std::cout << std::endl;
+}*/
+
+void Graph::deleteGraph() {
+    adjList.clear();
 }

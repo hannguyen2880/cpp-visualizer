@@ -3,20 +3,26 @@
 
 #include <iostream>
 #include <vector>
-#include <list>
+#include "raylib.h"
+#include "../../Graphic.h"
 
 class HashTable {
 private:
-    std::vector<std::list<int>> table;
+    std::vector<int> table;     
+    int size;
     int hashFunction(int key);
+    int linearProbing(int key);
 
 public:
     HashTable(int size);
-    void insertItem(int key);
-    void deleteItem(int key);
+    bool insertItem(int key);
+    bool deleteItem(int key);
     bool searchItem(int key);
-    std::vector<std::list<int>> getTable();
+    std::vector<int> getTable();
     void deleteTable();
+    std::vector<bool> isFilled;
+    void FillTable(bool isDarkMode);
 };
+void DrawTable(bool isDarkMode);
 
 #endif

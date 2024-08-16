@@ -235,6 +235,8 @@ void HashScreen(Screen& currentScreen, bool& isDarkMode) {
     }
     // Draw current hash table
     //.....
+    DrawTable(isDarkMode);
+    hashtable.FillTable(isDarkMode);
 }
 
 void HashScreenUnload() {

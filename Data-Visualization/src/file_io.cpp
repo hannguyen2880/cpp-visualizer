@@ -42,3 +42,23 @@ std::string getRandomString(int minLength, int maxLength) {
     }
     return data;
 }
+
+std::unordered_map<int, std::list<int>> readGraphFromMatrixFile(const std::string& filename) {
+    std::unordered_map<int, std::list<int>> adjList;
+    std::ifstream file(filename);
+    int n;
+    file >> n;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            int x;
+            file >> x;
+
+        }
+    }
+    return adjList;
+}
+
+std::unordered_map<int, std::list<int>> readGraphFromAdjFile(const std::string& filename) {
+    std::unordered_map<int, std::list<int>> ans;
+    return ans;
+}

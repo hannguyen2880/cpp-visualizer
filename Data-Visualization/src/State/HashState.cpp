@@ -34,7 +34,10 @@ void Hash_InitOption(bool& chosen, bool isDarkMode, HashTable& hash) {
         if (fileName) {
             hash.deleteTable();
             std::vector<int> path = readDataFromFile(fileName);
-            for (auto x : path) hash.insertItem(x);
+            for (auto x : path) {
+                hash.insertItem(x);
+                std::cout << x << std::endl;
+            }
         }
         showFileMessHash = true;
     }
@@ -45,9 +48,29 @@ void Hash_InitOption(bool& chosen, bool isDarkMode, HashTable& hash) {
         showRandomMessHash = false;
     }	
 }
+char inputTextHash[10] = "\0";
+bool textBoxEditModeHash = false;
 
 void Hash_InsertOption(bool& chosen, bool isDarkMode, HashTable& hash) {
-	if (!chosen) return;
+    if (!chosen) return;
+    showEmptyMessHash = false;
+    showFileMessHash = false;
+    showRandomMessHash = false;
+    GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
+    GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    DrawTextInArea("Input the value in want to insert in the box.", 30, 380, 420, isDarkMode);
+
+    if (GuiTextBox(Rectangle{ 200, 180, 100, 50 }, inputTextHash, 200, textBoxEditModeHash)) {
+        textBoxEditModeHash = 1 - textBoxEditModeHash;
+    }
+
+    if (!textBoxEditModeHash && inputTextHash[0] != '\0') {
+        int value = atoi(inputTextHash);
+        hash.insertItem(value);
+        inputTextHash[0] = '\0';
+    }
+
 }
 
 void Hash_DeleteOption(bool& chosen, bool isDarkMode, HashTable& hash) {
