@@ -148,6 +148,7 @@
     <ClCompile Include="State\Tree234State.cpp" />
     <ClCompile Include="State\TrieState.cpp" />
     <ClCompile Include="tinyfiledialogs.c" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\AVL\AVLTree.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="State\Tree234State.h" />
     <ClInclude Include="State\TrieState.h" />
     <ClInclude Include="tinyfiledialogs.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\AVL_background.png" />

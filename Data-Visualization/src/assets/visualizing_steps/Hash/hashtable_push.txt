@@ -1,4 +1,9 @@
-int hkey = hashFunc(v);
-Node* u = new Node(v);
-u->next = h[hkey]->next;
-h[hkey]->next = u;
+bool HashTable::insertItem(int key) {
+    int index = linearProbing(key);
+    if (index == -1) {
+        return false;
+    }
+    table[index] = key;
+    isFilled[index] = true;
+    return true;
+}
