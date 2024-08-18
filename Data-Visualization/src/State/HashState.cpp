@@ -50,8 +50,8 @@ void Hash_InitOption(bool& chosen, bool isDarkMode, HashTable& hash, std::vector
 }
 char inputTextHash[10] = "\0";
 bool textBoxEditModeHash = false;
-static int stepIndex = 0;
-static bool stepbystepMode = false;
+static int stepIndexInsertHash = 0;
+static bool stepbystepModeInsertHash = false;
 
 void Hash_InsertOption(bool& chosen, bool isDarkMode, HashTable& hash, std::vector<TransformerHash>& transformsHash) {
     if (!chosen) return;
@@ -71,33 +71,33 @@ void Hash_InsertOption(bool& chosen, bool isDarkMode, HashTable& hash, std::vect
         int value = atoi(inputTextHash);
         transformsHash.clear();
         hash.insertItem(value, transformsHash);
-        stepIndex = 0;
-        stepbystepMode = true;
+        stepIndexInsertHash = 0;
+        stepbystepModeInsertHash = true;
         inputTextHash[0] = '\0';
     }
 
-    if (stepbystepMode) {
+    if (stepbystepModeInsertHash) {
         if (GuiButton(Rectangle{ 200, 240, 100, 30 }, "Next Step")) {
-            if (stepIndex < transformsHash.size() - 1) ++stepIndex;
+            if (stepIndexInsertHash < transformsHash.size() - 1) ++stepIndexInsertHash;
         }
         if (GuiButton(Rectangle{ 200, 280, 100, 30 }, "Prev Step")) {
-            if (stepIndex > 0) --stepIndex;
+            if (stepIndexInsertHash > 0) --stepIndexInsertHash;
         }
         // Render
-        DrawText(transformsHash[stepIndex].message.c_str(), 200, 320, 20, isDarkMode ? WHITE : BLACK);
+        DrawText(transformsHash[stepIndexInsertHash].message.c_str(), 200, 320, 20, isDarkMode ? WHITE : BLACK);
         std::vector<int> indexs;
-        indexs.push_back(transformsHash[stepIndex].index);
-        if (stepIndex > 0) hash.FillTableMode(isDarkMode, indexs);
+        indexs.push_back(transformsHash[stepIndexInsertHash].index);
+        if (stepIndexInsertHash > 0) hash.FillTableMode(isDarkMode, indexs);
         else hash.FillTable(isDarkMode);
     }
     else hash.FillTable(isDarkMode);
 }
 int idx = -1;
+static int stepIndexDeleteHash = 0;
+static bool stepbystepModeDeleteHash = false;
 
 void Hash_DeleteOption(bool& chosen, bool isDarkMode, HashTable& hash, std::vector<TransformerHash>& transformsHash) {
     if (!chosen) return;
-    if (!chosen) return;
-
     showEmptyMessHash = false;
     showFileMessHash = false;
     showRandomMessHash = false;
@@ -113,29 +113,32 @@ void Hash_DeleteOption(bool& chosen, bool isDarkMode, HashTable& hash, std::vect
     if (!textBoxEditModeHash && inputTextHash[0] != '\0') {
         int value = atoi(inputTextHash);
         transformsHash.clear();
-        stepIndex = 0;
-        stepbystepMode = true;
+        stepIndexDeleteHash = 0;
+        stepbystepModeDeleteHash = true;
         hash.deleteItem(value, transformsHash, idx);
         inputTextHash[0] = '\0';
     }    
 
-    if (stepbystepMode) {
+    if (stepbystepModeDeleteHash) {
         if (GuiButton(Rectangle{ 200, 300, 100, 30 }, "Next Step")) {
-            if (stepIndex < transformsHash.size() - 1) ++stepIndex;
+            if (stepIndexDeleteHash < transformsHash.size() - 1) ++stepIndexDeleteHash;
         }
         if (GuiButton(Rectangle{ 200, 340, 100, 30 }, "Prev Step")) {
-            if (stepIndex > 0) --stepIndex;
+            if (stepIndexDeleteHash > 0) --stepIndexDeleteHash;
         }
         // Render
-        DrawTextInArea(transformsHash[stepIndex].message.c_str(), 30, 380, 600, isDarkMode);
+        DrawTextInArea(transformsHash[stepIndexDeleteHash].message.c_str(), 30, 380, 600, isDarkMode);
         std::vector<int> indexs;
-        indexs.push_back(transformsHash[stepIndex].index);
+        indexs.push_back(transformsHash[stepIndexDeleteHash].index);
         indexs.push_back(idx);
-        if (stepIndex > 0) hash.FillTableMode(isDarkMode, indexs);
+        if (stepIndexDeleteHash > 0) hash.FillTableMode(isDarkMode, indexs);
         else hash.FillTable(isDarkMode);
     }
     else hash.FillTable(isDarkMode);
 }
+
+static int stepIndexSearchHash = 0;
+static bool stepbystepModeSearchHash = false;
 
 void Hash_SearchOption(bool& chosen, bool isDarkMode, HashTable& hash, std::vector<TransformerHash>& transformsHash) {
 	if (!chosen) return;
@@ -157,22 +160,22 @@ void Hash_SearchOption(bool& chosen, bool isDarkMode, HashTable& hash, std::vect
         transformsHash.clear();
         int idx = -1;
         hash.searchItem(value, transformsHash, idx);
-        stepIndex = 0;
-        stepbystepMode = true;
+        stepIndexSearchHash = 0;
+        stepbystepModeSearchHash = true;
         inputTextHash[0] = '\0';
     }
-    if (stepbystepMode) {
+    if (stepbystepModeSearchHash) {
         if (GuiButton(Rectangle{ 200, 360, 100, 30 }, "Next Step")) {
-            if (stepIndex < transformsHash.size() - 1) ++stepIndex;
+            if (stepIndexSearchHash < transformsHash.size() - 1) ++stepIndexSearchHash;
         }
         if (GuiButton(Rectangle{ 200, 400, 100, 30 }, "Prev Step")) {
-            if (stepIndex > 0) --stepIndex;
+            if (stepIndexSearchHash > 0) --stepIndexSearchHash;
         }
         // Render
-        DrawTextInArea(transformsHash[stepIndex].message.c_str(), 30, 380, 600, isDarkMode);
+        DrawTextInArea(transformsHash[stepIndexSearchHash].message.c_str(), 30, 380, 600, isDarkMode);
         std::vector<int> indexs;
-        indexs.push_back(transformsHash[stepIndex].index);
-        if (stepIndex > 0) hash.FillTableMode(isDarkMode, indexs);
+        indexs.push_back(transformsHash[stepIndexSearchHash].index);
+        if (stepIndexSearchHash > 0) hash.FillTableMode(isDarkMode, indexs);
         else hash.FillTable(isDarkMode);
     }
     else hash.FillTable(isDarkMode);

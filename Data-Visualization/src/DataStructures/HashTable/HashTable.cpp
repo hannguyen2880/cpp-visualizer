@@ -34,30 +34,39 @@ bool HashTable::insertItem(int key, std::vector<TransformerHash>& transforms) {
         return false;
     }
     // Searching Process step-by-step
-    TransformerHash searchingTransform(
+    TransformerHash insert1(
         index,
         "Searching for the position to insert..."
     );
-    transforms.push_back(searchingTransform);
+    transforms.push_back(insert1);
 
-    std::string hashfunction = std::to_string(hashFunction(key));
-    std::string key_str = std::to_string(key);
+    index = hashFunction(key);
+    int originalIndex = index;
 
-    TransformerHash searchingTransform2(
+    TransformerHash insert2(
         index,
-        "Hash(" + key_str + ") = " + hashfunction
+        "Hash(" + std::to_string(key) + ") = " + std::to_string(index)
     );
-    transforms.push_back(searchingTransform2);
+    transforms.push_back(insert2);
+    //std::cout << index << std::endl;
+    while (isFilled[index]) {
+        TransformerHash insert3(
+            index,
+            "This box is already filled, we need to increase the index!"
+        );
+        index = (index + 1) % size;
+    }
+
 
     if (hashFunction(key) != linearProbing(key)) {
         std::string problingfunction = std::to_string(linearProbing(key));
         TransformerHash searchingTransform3(
             index,
-            "Probling(" + key_str + ") = " + problingfunction
+            "Now, Probling(" + std::to_string(key) + ") = " + std::to_string(linearProbing(key))
         );
         transforms.push_back(searchingTransform3);
     }
-
+    
     // insert
     table[index] = key;
     isFilled[index] = true;
