@@ -313,7 +313,7 @@ void GraphScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
     // Draw current graph
-    graph.drawGraph(400, 1400, 150, 700, isDarkMode);
+    //graph.drawGraph(400, 1400, 150, 700, isDarkMode);
 }
 
 // ---------------TRIE----------------------

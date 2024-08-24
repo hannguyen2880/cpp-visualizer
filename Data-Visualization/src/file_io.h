@@ -10,10 +10,10 @@
 #include "raylib.h"
 #include <unordered_map>
 #include <list>
+#include "DataStructures//Graph/Graph.h"
 
 std::vector<int> readDataFromFile(const std::string& filename);
 std::vector<std::string> readDataStringFromFile(const std::string& filename);
 std::string getRandomString(int minLength, int maxLength);
-std::unordered_map<int, std::vector<std::pair<int, int>>> readGraphFromMatrixFile(const std::string& filename);
-std::unordered_map<int, std::vector<std::pair<int, int>>> readGraphFromAdjFile(const std::string& filename);
+void readGraphFromMatrixFile(const std::string& filename, Graph& graph);
 #endif

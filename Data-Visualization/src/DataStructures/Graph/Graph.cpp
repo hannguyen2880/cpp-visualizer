@@ -1,5 +1,6 @@
-#include "Graph.h"
+﻿#include "Graph.h"
 const int inf = 2e9;
+const int maxUpdates = 500;
 
 void Graph::addEdge(int u, int v, int w) {
     adjList[u].push_back({ w, v });
@@ -98,16 +99,21 @@ void Graph::initializePositions(int startX, int endX, int startY, int endY) {
     for (int vertex : vertices) {
         float x = startX + std::rand() % width;
         float y = startY + std::rand() % height;
+
         positions[vertex] = Vector2{ x, y };
         velocities[vertex] = Vector2{ 0, 0 };
         forces[vertex] = Vector2{ 0, 0 };
+
+        std::cout << x << " " << y << std::endl;
     }
 }
+
 
 void Graph::updatePositions() {
     const float repulsion = 100.0f;
     const float attraction = 0.1f;
     const float damping = 0.85f;    // velocity decreasing
+    const float threshold = 0.1f; // stoppping limit
 
     for (auto& pair : forces) {
         int node = pair.first;
@@ -121,7 +127,7 @@ void Graph::updatePositions() {
         for (auto it2 = std::next(it1); it2 != vertices.end(); ++it2) {
             Vector2 direction = Vector2Subtract(positions[*it1], positions[*it2]);
             float distance = Vector2Length(direction);
-            if (distance == 0) distance = 0.1f; // Avoid dividing by 0
+            if (distance == 0) distance = 0.1f; // avoid dividing by 0
             Vector2 repulsiveForce = Vector2Scale(Vector2Normalize(direction), repulsion / (distance * distance));
             forces[*it1] = Vector2Add(forces[*it1], repulsiveForce);
             forces[*it2] = Vector2Subtract(forces[*it2], repulsiveForce);
@@ -143,40 +149,101 @@ void Graph::updatePositions() {
         }
     }
 
-    // update velocity and position
+    float totalForce = 0.0f;
     for (int vertex : vertices) {
-        velocities[vertex] = Vector2Add(velocities[vertex], forces[vertex]);
-        velocities[vertex] = Vector2Scale(velocities[vertex], damping);
-        positions[vertex] = Vector2Add(positions[vertex], velocities[vertex]);
+        totalForce += Vector2Length(forces[vertex]);
+    }
+
+    if (totalForce > threshold) {
+        for (int vertex : vertices) {
+            velocities[vertex] = Vector2Add(velocities[vertex], forces[vertex]);
+            velocities[vertex] = Vector2Scale(velocities[vertex], damping);
+            positions[vertex] = Vector2Add(positions[vertex], velocities[vertex]);
+        }
     }
 }
 
-void Graph::drawGraph(int startX, int endX, int startY, int endY, bool isDarkMode) {
-    initializePositions(startX, endX, startY, endY);
-
+void Graph::drawGraph(int startX, int endX, int startY, int endY, bool isDarkMode, int& nUpdates) {
     Color bgColor = isDarkMode ? DARKGRAY : RAYWHITE;
-    Color nodeColor = isDarkMode ? LIGHTGRAY : DARKBLUE;
+    Color nodeColor = isDarkMode ? SKYBLUE : RED;
     Color textColor = isDarkMode ? WHITE : BLACK;
-    Color edgeColor = GRAY;
+    Color edgeColor = isDarkMode ? GRAY : DARKGRAY;
 
-    updatePositions();
+    if (nUpdates < maxUpdates) {
+        updatePositions();
+        ++nUpdates;
+    }
+
     for (const auto& pair : adjList) {
         int u = pair.first;
         for (const auto& nei : pair.second) {
             int weight = nei.first;
             int v = nei.second;
+
             if (positions.count(u) && positions.count(v)) {
-                DrawLineEx(positions[u], positions[v], 2.0f, edgeColor);
+                Vector2 start = positions[u];
+                Vector2 end = positions[v];
+
+                DrawLineEx(start, end, 2.0f, edgeColor);
+
+                Vector2 midPoint = {
+                    (start.x + end.x) / 2,
+                    (start.y + end.y) / 2
+                };
+
+                DrawText(TextFormat("%d", weight), midPoint.x, midPoint.y, 20, textColor);
             }
         }
     }
 
+    
+    // Draw Edge
+    /*for (const auto& pair : adjList) {
+        int u = pair.first;
+        for (const auto& nei : pair.second) {
+            int weight = nei.first;
+            int v = nei.second;
+            if (positions.count(u) && positions.count(v)) {
+                Vector2 start = positions[u];
+                Vector2 end = positions[v];
+
+                DrawLineEx(start, end, 2.0f, edgeColor);
+
+                float arrowSize = 10.0f;
+                float angle = atan2(end.y - start.y, end.x - start.x);
+
+                Vector2 adjustedEnd = {
+                    end.x - 20 * cos(angle),
+                    end.y - 20 * sin(angle)
+                };
+
+                Vector2 arrowPoint1 = {
+                    adjustedEnd.x - arrowSize * cos(angle - PI / 6),
+                    adjustedEnd.y - arrowSize * sin(angle - PI / 6)
+                };
+                Vector2 arrowPoint2 = {
+                    adjustedEnd.x - arrowSize * cos(angle + PI / 6),
+                    adjustedEnd.y - arrowSize * sin(angle + PI / 6)
+                };
+
+                DrawLineEx(adjustedEnd, arrowPoint1, 2.0f, edgeColor);
+                DrawLineEx(adjustedEnd, arrowPoint2, 2.0f, edgeColor);
+
+                Vector2 midPoint = {
+                    (start.x + end.x) / 2,
+                    (start.y + end.y) / 2
+                };
+                DrawText(TextFormat("%d", weight), midPoint.x, midPoint.y, 20, textColor);
+            }
+        }
+    }*/
+    // Draw Vertex
     for (const auto& position : positions) {
         int vertex = position.first;
         Vector2 pos = position.second;
         if (pos.x >= startX && pos.x <= endX && pos.y >= startY && pos.y <= endY) {
             DrawCircleV(pos, 20, nodeColor);
-            DrawText(TextFormat("%d", vertex), pos.x - 5, pos.y - 10, 10, textColor);
+            DrawText(TextFormat("%d", vertex), pos.x - 10, pos.y - 10, 20, textColor);
         }
     }
 }

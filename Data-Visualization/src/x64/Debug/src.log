@@ -1,13 +1,12 @@
-﻿  screen.cpp
-  AVLState.cpp
-  GraphState.cpp
-  HashState.cpp
-  HeapState.cpp
-  Tree234State.cpp
-  TrieState.cpp
-  file_io.cpp
-  main.cpp
-  Generating Code...
+﻿  Graph.cpp
+D:\APCS\CS163\cpp-visualizer\Data-Visualization\src\DataStructures\Graph\Graph.cpp(2,17): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\APCS\CS163\cpp-visualizer\Data-Visualization\src\DataStructures\Graph\Graph.cpp(12,25): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\APCS\CS163\cpp-visualizer\Data-Visualization\src\DataStructures\Graph\Graph.cpp(100,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\APCS\CS163\cpp-visualizer\Data-Visualization\src\DataStructures\Graph\Graph.cpp(101,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\APCS\CS163\cpp-visualizer\Data-Visualization\src\DataStructures\Graph\Graph.cpp(194,72): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\APCS\CS163\cpp-visualizer\Data-Visualization\src\DataStructures\Graph\Graph.cpp(194,60): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\APCS\CS163\cpp-visualizer\Data-Visualization\src\DataStructures\Graph\Graph.cpp(246,66): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\APCS\CS163\cpp-visualizer\Data-Visualization\src\DataStructures\Graph\Graph.cpp(246,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   src.vcxproj -> D:\APCS\CS163\cpp-visualizer\Data-Visualization\x64\Debug\src.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.
