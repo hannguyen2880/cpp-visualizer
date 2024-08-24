@@ -140,6 +140,7 @@
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="raygui.c" />
+    <ClCompile Include="raylib_conf.cpp" />
     <ClCompile Include="Screen\screen.cpp" />
     <ClCompile Include="State\AVLState.cpp" />
     <ClCompile Include="State\GraphState.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="file_io.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="raygui.h" />
+    <ClInclude Include="raylib_conf.h" />
     <ClInclude Include="Screen\screen.h" />
     <ClInclude Include="State\AVLState.h" />
     <ClInclude Include="State\GraphState.h" />

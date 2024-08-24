@@ -19,6 +19,9 @@ void AVLScreenUnload() {
     UnloadTexture(AVL_background_dark);
 }
 
+//std::vector<TransformerAVL> transformsavl;
+//std::vector<TransformerAVL>& transformsAVL = transformsavl;
+
 void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     ClearBackground(isDarkMode ? DARKGRAY : LIGHTGRAY);
 
@@ -310,7 +313,7 @@ void GraphScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
     // Draw current graph
-    //...
+    graph.drawGraph(400, 1400, 150, 700, isDarkMode);
 }
 
 // ---------------TRIE----------------------

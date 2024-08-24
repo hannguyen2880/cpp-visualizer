@@ -47,8 +47,11 @@ void AVL_InitOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
 char inputText[10] = "\0";
 bool textBoxEditMode = false;
 
-static int stepIndex = 0;
-static bool stepByStepMode = false;
+//static int stepIndex = 0;
+//static bool stepByStepMode = false;
+
+static int stepIndexInsertAVL = 0;
+static bool stepbystepModeInsertAVL = false;
 
 void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     if (!chosen) return;
@@ -60,40 +63,46 @@ void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
     DrawTextInArea("Input the value in want to insert in the box.", 30, 380, 420, isDarkMode);
 
-    static int stepIndex = 0;
-    static bool stepByStepMode = false;
-
     if (GuiTextBox(Rectangle{ 200, 180, 100, 50 }, inputText, 200, textBoxEditMode)) {
         textBoxEditMode = 1 - textBoxEditMode;
     }
 
     if (!textBoxEditMode && inputText[0] != '\0') {
         int value = atoi(inputText);
-        tree.insertWithSteps(value);
-        stepIndex = 0;
-        stepByStepMode = true;
-        inputText[0] = '\0'; // Clear the input text
+        tree.transformSteps.clear();  // Clear previous steps
+        tree.insertWithSteps(value);  // Insert with steps recording
+        stepIndexInsertAVL = 0;
+        stepbystepModeInsertAVL = true;
+        inputText[0] = '\0';  // Reset input
     }
 
-    // Display step-by-step controls
-    if (stepByStepMode && !tree.steps.empty()) {
-        if (GuiButton(Rectangle{ 200, 240, 100, 30 }, "Next Step")) {
-            if (stepIndex < tree.steps.size() - 1) {
-                stepIndex++;
-            }
+    if (stepbystepModeInsertAVL) {
+        if (GuiButton(Rectangle{ 200, 300, 100, 30 }, "Next Step")) {
+            if (stepIndexInsertAVL < tree.transformSteps.size() - 1) ++stepIndexInsertAVL;
         }
-        if (GuiButton(Rectangle{ 200, 280, 100, 30 }, "Prev Step")) {
-            if (stepIndex > 0) {
-                stepIndex--;
-            }
+        if (GuiButton(Rectangle{ 200, 340, 100, 30 }, "Prev Step")) {
+            if (stepIndexInsertAVL > 0) --stepIndexInsertAVL;
         }
-        DrawText(tree.steps[stepIndex].c_str(), 200, 320, 20, isDarkMode ? WHITE : BLACK);
+        tree.transformSteps[stepIndexInsertAVL].Render(isDarkMode);
+        DrawAVLAnimation(tree, stepIndexInsertAVL, 400, 1400, 150, 790, isDarkMode);
     }
-
-    // Display tree visualization up to current step
-    if (stepByStepMode && stepIndex < tree.steps.size()) {
-        DrawAVLAnimation(tree, stepIndex, 400, 1400, 150, 790, isDarkMode);
+    /*
+    if (stepbystepModeSearchHash) {
+        if (GuiButton(Rectangle{ 200, 360, 100, 30 }, "Next Step")) {
+            if (stepIndexSearchHash < transformsHash.size() - 1) ++stepIndexSearchHash;
+        }
+        if (GuiButton(Rectangle{ 200, 400, 100, 30 }, "Prev Step")) {
+            if (stepIndexSearchHash > 0) --stepIndexSearchHash;
+        }
+        // Render
+        DrawTextInArea(transformsHash[stepIndexSearchHash].message.c_str(), 30, 380, 600, isDarkMode);
+        std::vector<int> indexs;
+        indexs.push_back(transformsHash[stepIndexSearchHash].index);
+        if (stepIndexSearchHash > 0) hash.FillTableMode(isDarkMode, indexs);
+        else hash.FillTable(isDarkMode);
     }
+    else hash.FillTable(isDarkMode);
+    */
 }
 
 

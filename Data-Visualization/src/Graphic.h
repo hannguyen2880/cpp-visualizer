@@ -3,9 +3,8 @@
 #include <raylib.h>
 #include "raygui.h"
 #include "tinyfiledialogs.h"
-#include "DataStructures/AVL/AVLTree.h"
 #include <fstream>
-#include <fstream>
+#include <vector>
 #include <sstream>
 
 void DrawTextRectangle(const char* txt, Rectangle rect, int fontSize, bool isDarkMode, Color dark, Color bright);

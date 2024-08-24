@@ -123,6 +123,9 @@
     <ClCompile Include="Transform.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="raylib_conf.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_io.h">
@@ -186,6 +189,9 @@
       <Filter>State</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="raylib_conf.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
