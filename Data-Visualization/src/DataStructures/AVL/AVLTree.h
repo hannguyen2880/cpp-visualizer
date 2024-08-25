@@ -5,6 +5,7 @@
 #include "raylib.h"
 #include <thread>
 #include <chrono>
+#include "../../Transform.h"
 
 struct AVLNode {
     int key, height;
@@ -28,7 +29,9 @@ private:
     AVLNode* insert_steps(AVLNode* node, int key);
 
 public:
-    std::vector<std::string> steps;
+    std::vector<TransformerAVL> transformSteps;
+    //std::vector<TransformerAVL> transformsavl;
+    //std::vector<TransformerAVL>& transformSteps = transformsavl;
     AVLTree();
     ~AVLTree();
     AVLNode* getRoot();

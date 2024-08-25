@@ -1,7 +1,15 @@
-int hkey = hashFunc(v);
-Node* u = h[hkey]->next;
-while (u != nullptr) 
-    if (u->val == v)
-        break;
-    u = u->next;
-return u;
+bool HashTable::searchItem(int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+
+    while (isFilled[index]) {
+        if (table[index] == key) {
+            return true;
+        }
+        index = (index + 1) % size;
+        if (index == originalIndex) {
+            return false;
+        }
+    }
+    return false;
+}

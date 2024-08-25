@@ -3,20 +3,28 @@
 
 #include <iostream>
 #include <vector>
-#include <list>
+#include "raylib.h"
+#include "../../Graphic.h"
+#include "../../Transform.h"
 
 class HashTable {
 private:
-    std::vector<std::list<int>> table;
+    std::vector<int> table;     
+    int size;
     int hashFunction(int key);
+    int linearProbing(int key);
 
 public:
     HashTable(int size);
-    void insertItem(int key);
-    void deleteItem(int key);
-    bool searchItem(int key);
-    std::vector<std::list<int>> getTable();
+    bool insertItem(int key, std::vector<TransformerHash>& transforms);
+    bool deleteItem(int key, std::vector<TransformerHash>& transforms, int& idx);
+    bool searchItem(int key, std::vector<TransformerHash>& transforms, int& idx);
+    std::vector<int> getTable();
     void deleteTable();
+    std::vector<bool> isFilled;
+    void FillTable(bool isDarkMode);
+    void FillTableMode(bool isDarkMode, std::vector<int> indexs);
 };
+void DrawTable(bool isDarkMode);
 
 #endif

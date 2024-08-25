@@ -140,6 +140,7 @@
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="raygui.c" />
+    <ClCompile Include="raylib_conf.cpp" />
     <ClCompile Include="Screen\screen.cpp" />
     <ClCompile Include="State\AVLState.cpp" />
     <ClCompile Include="State\GraphState.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="State\Tree234State.cpp" />
     <ClCompile Include="State\TrieState.cpp" />
     <ClCompile Include="tinyfiledialogs.c" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\AVL\AVLTree.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="file_io.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="raygui.h" />
+    <ClInclude Include="raylib_conf.h" />
     <ClInclude Include="Screen\screen.h" />
     <ClInclude Include="State\AVLState.h" />
     <ClInclude Include="State\GraphState.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="State\Tree234State.h" />
     <ClInclude Include="State\TrieState.h" />
     <ClInclude Include="tinyfiledialogs.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\AVL_background.png" />

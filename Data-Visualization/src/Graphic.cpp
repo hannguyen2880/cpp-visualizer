@@ -2,6 +2,17 @@
 #include <vector>
 #include <string>
 
+void DrawTextRectangle(const char* txt, Rectangle rect, int fontSize, bool isDarkMode, Color dark, Color bright) {
+    int textWidth = MeasureText(txt, fontSize);
+    int textHeight = fontSize;
+
+    int textX = rect.x + (rect.width - textWidth) / 2;
+    int textY = rect.y + (rect.height - textHeight) / 2;
+
+    Color color = isDarkMode ? dark : bright;
+    DrawText(txt, textX, textY, fontSize, color);
+}
+
 bool DrawCustomButton(Rectangle rect, const char* text, bool isDarkMode) {
     Vector2 mousePoint = GetMousePosition();
     bool hover = CheckCollisionPointRec(mousePoint, rect);

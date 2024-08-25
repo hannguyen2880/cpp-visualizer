@@ -42,3 +42,20 @@ std::string getRandomString(int minLength, int maxLength) {
     }
     return data;
 }
+
+void readGraphFromMatrixFile(const std::string& filename, Graph& graph) {
+    std::ifstream file(filename);
+    int n;
+    file >> n;
+    for (int i = 1; i <= n; ++i) {
+        graph.vertices.insert(i);
+        for (int j = 1; j <= n; ++j) {
+            int x;
+            file >> x;
+            if (x > 0) {
+                graph.adjList[i].push_back({ x, j });
+                graph.adjList[j].push_back({ x, i });
+            }
+        }
+    }
+}

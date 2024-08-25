@@ -138,19 +138,31 @@ void AVLTree::deleteAVLTree() {
 
 AVLNode* AVLTree::insert_steps(AVLNode* node, int key) {
     if (node == nullptr) {
-        steps.push_back("Inserting node " + std::to_string(key));
+        TransformerAVL insertStep(
+            StepTypeAVL::INSERT, key, 600, "Inserting node " + std::to_string(key), SKYBLUE, WHITE
+        );
+        transformSteps.push_back(insertStep);
         return new AVLNode(key);
     }
     if (key < node->key) {
-        steps.push_back("Going left from node " + std::to_string(node->key));
+        TransformerAVL leftStep(
+            StepTypeAVL::INSERT, node->key, 600, "Going left from node " + std::to_string(node->key), GREEN, WHITE
+        );
+        transformSteps.push_back(leftStep);
         node->left = insert_steps(node->left, key);
     }
     else if (key > node->key) {
-        steps.push_back("Going right from node " + std::to_string(node->key));
+        TransformerAVL rightStep(
+            StepTypeAVL::INSERT, node->key, 600, "Going right from node " + std::to_string(node->key), GREEN, WHITE
+        );
+        transformSteps.push_back(rightStep);
         node->right = insert_steps(node->right, key);
     }
     else {
-        steps.push_back("Node " + std::to_string(key) + " already exists");
+        TransformerAVL existStep(
+            StepTypeAVL::INSERT, node->key, 600, "Node " + std::to_string(key) + " already exists", RED, WHITE
+        );
+        transformSteps.push_back(existStep);
         return node;
     }
 
@@ -158,23 +170,17 @@ AVLNode* AVLTree::insert_steps(AVLNode* node, int key) {
     int balance = getBalance(node);
 
     if (balance > 1 && key < node->left->key) {
-        steps.push_back("Performing right rotation at node " + std::to_string(node->key));
+        TransformerAVL rotateStep(
+            StepTypeAVL::ROTATE, node->key, 600, "Performing right rotation at node " + std::to_string(node->key), RED, YELLOW
+        );
+        transformSteps.push_back(rotateStep);
         return rightRotate(node);
     }
     if (balance < -1 && key > node->right->key) {
-        steps.push_back("Performing left rotation at node " + std::to_string(node->key));
-        return leftRotate(node);
-    }
-    if (balance > 1 && key > node->left->key) {
-        steps.push_back("Performing left rotation at node " + std::to_string(node->left->key));
-        node->left = leftRotate(node->left);
-        steps.push_back("Performing right rotation at node " + std::to_string(node->key));
-        return rightRotate(node);
-    }
-    if (balance < -1 && key < node->right->key) {
-        steps.push_back("Performing right rotation at node " + std::to_string(node->right->key));
-        node->right = rightRotate(node->right);
-        steps.push_back("Performing left rotation at node " + std::to_string(node->key));
+        TransformerAVL rotateStep(
+            StepTypeAVL::ROTATE, node->key, 600, "Performing left rotation at node " + std::to_string(node->key), RED, YELLOW
+        );
+        transformSteps.push_back(rotateStep);
         return leftRotate(node);
     }
 
@@ -182,7 +188,7 @@ AVLNode* AVLTree::insert_steps(AVLNode* node, int key) {
 }
 
 void AVLTree::insertWithSteps(int key) {
-    steps.clear();
+    //steps.clear();
     root = insert_steps(root, key);
 }
 
@@ -215,6 +221,7 @@ void DrawAVLTree(AVLNode* root, int startX, int endX, int startY, int endY, bool
     int initialX = (startX + endX) / 2;
     DrawAVLTreeRec(root, initialX, startY, startX, endX, startY, endY, isDarkMode);
 }
+
 void DrawAVLTreeWithHighlight(AVLNode* node, int startX, int endX, int startY, int endY, Color nodeColor, Color highlightColor, const std::string& currentStep, bool isDarkMode) {
     if (!node) return;
 
@@ -249,12 +256,11 @@ void DrawAVLAnimation(AVLTree& tree, int stepIndex, int startX, int endX, int st
     AVLTree tempTree;
     Color nodeColor = isDarkMode ? SKYBLUE : RED;
     Color highlightColor = isDarkMode ? YELLOW : GREEN;
-    std::string currentStep = stepIndex < tree.steps.size() ? tree.steps[stepIndex] : "";
-    //
-    // 
+    std::string currentStep = stepIndex < tree.transformSteps.size() ? tree.transformSteps[stepIndex].message : "";
+
     // Create temporary AVL tree up to the current step
-    for (int i = 0; i <= stepIndex && i < tree.steps.size(); ++i) {
-        std::string step = tree.steps[i];
+    for (int i = 0; i <= stepIndex && i < tree.transformSteps.size(); ++i) {
+        std::string step = tree.transformSteps[i].message;
         if (step.find("Inserting node") != std::string::npos) {
             int value = std::stoi(step.substr(14));
             tempTree.insert(value);
@@ -265,7 +271,7 @@ void DrawAVLAnimation(AVLTree& tree, int stepIndex, int startX, int endX, int st
         else if (step.find("Performing") != std::string::npos) {
             // Highlight rotations or cases
             DrawText(step.c_str(), 200, 360, 20, isDarkMode ? WHITE : BLACK);
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
     }
 

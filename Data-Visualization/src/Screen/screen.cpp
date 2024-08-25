@@ -19,6 +19,9 @@ void AVLScreenUnload() {
     UnloadTexture(AVL_background_dark);
 }
 
+//std::vector<TransformerAVL> transformsavl;
+//std::vector<TransformerAVL>& transformsAVL = transformsavl;
+
 void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     ClearBackground(isDarkMode ? DARKGRAY : LIGHTGRAY);
 
@@ -173,6 +176,8 @@ void HashScreenInit() {
     Hash_background = LoadTexture("Resources/Hash_background.png");
     Hash_background_dark = LoadTexture("Resources/Hash_background_dark.png");
 }
+std::vector<TransformerHash> transforms;
+std::vector<TransformerHash>& transformsHash = transforms;
 
 void HashScreen(Screen& currentScreen, bool& isDarkMode) {
     ClearBackground(isDarkMode ? DARKGRAY : LIGHTGRAY);
@@ -182,6 +187,7 @@ void HashScreen(Screen& currentScreen, bool& isDarkMode) {
     DrawTexturePro(currentBackground, source, dest, Vector2{ 0, 0 }, 0.0f, WHITE);
 
     DrawRectangle(0, 100, 400, 680, isDarkMode ? GRAY : WHITE);
+
     //...
     if (DrawCustomButton(Rectangle{ 0, 120, 150, 50 }, "Init", isDarkMode)) {
         HashInitOption = 1 - HashInitOption;
@@ -191,7 +197,7 @@ void HashScreen(Screen& currentScreen, bool& isDarkMode) {
             HashSearchOption = false;
         }
     }
-    Hash_InitOption(HashInitOption, isDarkMode, hashtable);
+    Hash_InitOption(HashInitOption, isDarkMode, hashtable, transformsHash);
 
     if (DrawCustomButton(Rectangle{ 0, 180, 150, 50 }, "Insert", isDarkMode)) {
         HashInsertOption = 1 - HashInsertOption;
@@ -201,7 +207,7 @@ void HashScreen(Screen& currentScreen, bool& isDarkMode) {
             HashSearchOption = false;
         }
     }
-    Hash_InsertOption(HashInsertOption, isDarkMode, hashtable);
+    Hash_InsertOption(HashInsertOption, isDarkMode, hashtable, transformsHash);
 
     if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
         HashDeleteOption = 1 - HashDeleteOption;
@@ -211,7 +217,7 @@ void HashScreen(Screen& currentScreen, bool& isDarkMode) {
             HashSearchOption = false;
         }
     }
-    Hash_DeleteOption(HashDeleteOption, isDarkMode, hashtable);
+    Hash_DeleteOption(HashDeleteOption, isDarkMode, hashtable, transformsHash);
 
     if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
         HashSearchOption = 1 - HashSearchOption;
@@ -221,7 +227,7 @@ void HashScreen(Screen& currentScreen, bool& isDarkMode) {
             HashDeleteOption = false;
         }
     }
-    Hash_SearchOption(HashSearchOption, isDarkMode, hashtable);
+    Hash_SearchOption(HashSearchOption, isDarkMode, hashtable, transformsHash);
     //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
         HashInitOption = false;
@@ -235,6 +241,10 @@ void HashScreen(Screen& currentScreen, bool& isDarkMode) {
     }
     // Draw current hash table
     //.....
+    DrawTable(isDarkMode);
+    if (!HashInsertOption && !HashDeleteOption && !HashSearchOption) {
+        hashtable.FillTable(isDarkMode);
+    }
 }
 
 void HashScreenUnload() {
@@ -273,7 +283,7 @@ void GraphScreen(Screen& currentScreen, bool& isDarkMode) {
             mst_Option = false;
         }
     }
-    Graph_InitOption(HashInitOption, isDarkMode, graph);
+    Graph_InitOption(graphInitOption, isDarkMode, graph);
 
     if (DrawCustomButton(Rectangle{ 0, 360, 300, 50 }, "Connected Components", isDarkMode)) {
         connected_component_Option = 1 - connected_component_Option;
@@ -302,8 +312,6 @@ void GraphScreen(Screen& currentScreen, bool& isDarkMode) {
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
-    // Draw current graph
-    //...
 }
 
 // ---------------TRIE----------------------

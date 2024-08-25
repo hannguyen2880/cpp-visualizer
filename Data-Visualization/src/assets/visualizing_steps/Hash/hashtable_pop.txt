@@ -1,11 +1,18 @@
-int hkey = hashFunc(v);
-Node* u = h[hkey];
-while (u->next != nullptr) {
-    if (u->next->val == v) {
-        Node* tmp = u->next;
-        u->next = tmp->next;
-        delete tmp;
-        return;
+bool HashTable::deleteItem(int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+
+    while (isFilled[index] && table[index] != key) {
+        index = (index + 1) % size;
+        if (index == originalIndex) {
+            return false;
+        }
     }
-    u = u->next;
+
+    if (table[index] == key) {
+        table[index] = -1;
+        isFilled[index] = false;
+        return true;
+    }
+    return false;
 }
