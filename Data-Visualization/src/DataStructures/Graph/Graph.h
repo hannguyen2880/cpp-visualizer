@@ -31,5 +31,7 @@ public:
     std::vector<std::vector<int>> connectedComponents();
     std::vector<pii> mst();
     void deleteGraph();
+    void drawGraphComponents(const std::vector<std::vector<int>>& components, int startX, int endX, int startY, int endY, bool isDarkMode);
+    void drawGraphMST(const std::vector<std::pair<int, int>>& mstEdges, int startX, int endX, int startY, int endY, bool isDarkMode);
 };
 #endif

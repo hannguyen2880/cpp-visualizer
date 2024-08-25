@@ -312,8 +312,6 @@ void GraphScreen(Screen& currentScreen, bool& isDarkMode) {
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
-    // Draw current graph
-    //graph.drawGraph(400, 1400, 150, 700, isDarkMode);
 }
 
 // ---------------TRIE----------------------

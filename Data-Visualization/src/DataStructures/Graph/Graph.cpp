@@ -103,8 +103,6 @@ void Graph::initializePositions(int startX, int endX, int startY, int endY) {
         positions[vertex] = Vector2{ x, y };
         velocities[vertex] = Vector2{ 0, 0 };
         forces[vertex] = Vector2{ 0, 0 };
-
-        std::cout << x << " " << y << std::endl;
     }
 }
 
@@ -195,49 +193,84 @@ void Graph::drawGraph(int startX, int endX, int startY, int endY, bool isDarkMod
             }
         }
     }
+    // Draw Vertex
+    for (const auto& position : positions) {
+        int vertex = position.first;
+        Vector2 pos = position.second;
+        if (pos.x >= startX && pos.x <= endX && pos.y >= startY && pos.y <= endY) {
+            DrawCircleV(pos, 20, nodeColor);
+            DrawText(TextFormat("%d", vertex), pos.x - 10, pos.y - 10, 20, textColor);
+        }
+    }
+}
 
-    
-    // Draw Edge
-    /*for (const auto& pair : adjList) {
-        int u = pair.first;
-        for (const auto& nei : pair.second) {
-            int weight = nei.first;
-            int v = nei.second;
-            if (positions.count(u) && positions.count(v)) {
-                Vector2 start = positions[u];
-                Vector2 end = positions[v];
+void Graph::drawGraphComponents(const std::vector<std::vector<int>>& components, int startX, int endX, int startY, int endY, bool isDarkMode) {
+    Color bgColor = isDarkMode ? DARKGRAY : RAYWHITE;
+    Color textColor = isDarkMode ? WHITE : BLACK;
 
-                DrawLineEx(start, end, 2.0f, edgeColor);
+    std::vector<Color> colors = { GREEN, BLUE, YELLOW, ORANGE, PURPLE, MAGENTA, BEIGE };
+    int colorIndex = 0;
 
-                float arrowSize = 10.0f;
-                float angle = atan2(end.y - start.y, end.x - start.x);
+    for (const auto& component : components) {
+        Color componentColor = colors[colorIndex % colors.size()];
+        colorIndex++;
 
-                Vector2 adjustedEnd = {
-                    end.x - 20 * cos(angle),
-                    end.y - 20 * sin(angle)
-                };
+        for (int u : component) {
+            if (positions.count(u)) {
+                for (const auto& nei : adjList[u]) {
+                    int weight = nei.first;
+                    int v = nei.second;
+                    if (positions.count(v) && std::find(component.begin(), component.end(), v) != component.end()) {
+                        DrawLineEx(positions[u], positions[v], 2.0f, componentColor);
 
-                Vector2 arrowPoint1 = {
-                    adjustedEnd.x - arrowSize * cos(angle - PI / 6),
-                    adjustedEnd.y - arrowSize * sin(angle - PI / 6)
-                };
-                Vector2 arrowPoint2 = {
-                    adjustedEnd.x - arrowSize * cos(angle + PI / 6),
-                    adjustedEnd.y - arrowSize * sin(angle + PI / 6)
-                };
+                        Vector2 midPoint = {
+                            (positions[u].x + positions[v].x) / 2,
+                            (positions[u].y + positions[v].y) / 2
+                        };
 
-                DrawLineEx(adjustedEnd, arrowPoint1, 2.0f, edgeColor);
-                DrawLineEx(adjustedEnd, arrowPoint2, 2.0f, edgeColor);
-
-                Vector2 midPoint = {
-                    (start.x + end.x) / 2,
-                    (start.y + end.y) / 2
-                };
-                DrawText(TextFormat("%d", weight), midPoint.x, midPoint.y, 20, textColor);
+                        DrawText(TextFormat("%d", weight), midPoint.x, midPoint.y, 20, textColor);
+                    }
+                }
+                DrawCircleV(positions[u], 20, componentColor);
+                DrawText(TextFormat("%d", u), positions[u].x - 10, positions[u].y - 10, 20, textColor);
             }
         }
-    }*/
-    // Draw Vertex
+    }
+}
+
+void Graph::drawGraphMST(const std::vector<std::pair<int, int>>& mstEdges, int startX, int endX, int startY, int endY, bool isDarkMode) {
+    Color bgColor = isDarkMode ? DARKGRAY : RAYWHITE;
+    Color nodeColor = isDarkMode ? RED : BLUE;
+    Color textColor = isDarkMode ? WHITE : BLACK;
+    Color mstEdgeColor = GREEN; 
+
+    for (const auto& edge : mstEdges) {
+        int u = edge.first;
+        int v = edge.second;
+        int weight = 0;
+
+        for (const auto& nei : adjList[u]) {
+            if (nei.second == v) {
+                weight = nei.first;
+                break;
+            }
+        }
+
+        if (positions.count(u) && positions.count(v)) {
+            Vector2 start = positions[u];
+            Vector2 end = positions[v];
+
+            DrawLineEx(start, end, 3.0f, mstEdgeColor);
+
+            Vector2 midPoint = {
+                (start.x + end.x) / 2,
+                (start.y + end.y) / 2
+            };
+
+            DrawText(TextFormat("%d", weight), midPoint.x, midPoint.y, 20, textColor);
+        }
+    }
+
     for (const auto& position : positions) {
         int vertex = position.first;
         Vector2 pos = position.second;
