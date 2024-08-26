@@ -320,6 +320,7 @@ Texture2D Trie_background, Trie_background_dark;
 Trie trie;
 bool TrieInitOption = false;
 bool TrieInsertOption = false, TrieDeleteOption = false, TrieSearchOption = false;
+TrieState trieState;
 
 void TrieScreenInit() {
     Trie_background = LoadTexture("Resources/Trie_background.png");
@@ -372,7 +373,7 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
             TrieDeleteOption = false;
         }
     }
-    Trie_SearchOption(TrieInsertOption, isDarkMode, trie);
+    Trie_SearchOption(TrieSearchOption, isDarkMode, trie, trieState);
     //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
         TrieInitOption = false;

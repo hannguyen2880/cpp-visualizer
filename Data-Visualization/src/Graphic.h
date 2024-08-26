@@ -13,3 +13,4 @@ bool DrawCustomButton2(Rectangle rect, const char* text, bool isDarkMode);
 void DrawTextInArea(const char* text, int startX, int endX, int startY, bool isDarkMode);
 std::vector<std::string> SplitTextIntoLines(const char* text, int maxWidth, int fontSize, Font font);
 void DrawTextInArea2(const char* text, int startX, int endX, int startY, bool isDarkMode, Font font);
+void DrawTextInArea3(const char* text, int startX, int endX, int startY, bool isDarkMode);
