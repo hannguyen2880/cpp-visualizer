@@ -33,11 +33,11 @@ std::vector<std::string> readDataStringFromFile(const std::string& filename) {
 }
 
 std::string getRandomString(int minLength, int maxLength) {
-    std::string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    std::string characters = "abcdefghijklmnopqrstuvwxyz";
     int nLen = GetRandomValue(minLength, maxLength);
     std::string data = "";
     for (int i = 0; i < nLen; ++i) {
-        int index = GetRandomValue(0, 52);
+        int index = GetRandomValue(0, 25);
         data.push_back(characters[index]);
     }
     return data;

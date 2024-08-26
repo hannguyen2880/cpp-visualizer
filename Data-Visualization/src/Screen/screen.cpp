@@ -320,6 +320,7 @@ Texture2D Trie_background, Trie_background_dark;
 Trie trie;
 bool TrieInitOption = false;
 bool TrieInsertOption = false, TrieDeleteOption = false, TrieSearchOption = false;
+TrieState trieState;
 
 void TrieScreenInit() {
     Trie_background = LoadTexture("Resources/Trie_background.png");
@@ -355,14 +356,14 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
     Trie_InsertOption(TrieInsertOption, isDarkMode, trie);
 
     if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
-        TrieInsertOption = 1 - TrieInsertOption;
-        if (TrieInsertOption) {
+        TrieDeleteOption = 1 - TrieDeleteOption;
+        if (TrieDeleteOption) {
             TrieInitOption = false;
-            TrieDeleteOption = false;
+            TrieInsertOption = false;
             TrieSearchOption = false;
         }
     }
-    Trie_InsertOption(TrieInsertOption, isDarkMode, trie);
+    Trie_DeleteOption(TrieDeleteOption, isDarkMode, trie);
 
     if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
         TrieSearchOption = 1 - TrieSearchOption;
@@ -372,7 +373,7 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
             TrieDeleteOption = false;
         }
     }
-    Trie_SearchOption(TrieInsertOption, isDarkMode, trie);
+    Trie_SearchOption(TrieSearchOption, isDarkMode, trie, trieState);
     //...
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
         TrieInitOption = false;
@@ -385,8 +386,7 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
     // Draw Trie
-    //DrawTrie(trie.getRoot(), 400, 1400, 150, 790, isDarkMode);
-
+    //trie.drawTrie(400, 1400, 60, 720, isDarkMode);
 }
 
 void TrieScreenUnload() {

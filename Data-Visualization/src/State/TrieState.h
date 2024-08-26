@@ -9,4 +9,4 @@
 void Trie_InitOption(bool& chosen, bool isDarkMode, Trie& trie);
 void Trie_InsertOption(bool& chosen, bool isDarkMode, Trie& trie);
 void Trie_DeleteOption(bool& chosen, bool isDarkMode, Trie& trie);
-void Trie_SearchOption(bool& chosen, bool isDarkMode, Trie& trie);
+void Trie_SearchOption(bool& chosen, bool isDarkMode, Trie& trie, TrieState& state);

@@ -132,3 +132,16 @@ void DrawTextInArea2(const char* text, int startX, int endX, int startY, bool is
         y += fontSize + 15;
     }
 }
+
+void DrawTextInArea3(const char* text, int startX, int endX, int startY, bool isDarkMode) {
+    int maxWidth = endX - startX;
+    int fontSize = 20;
+    Color textColor = isDarkMode ? RED : DARKBLUE;
+    std::vector<std::string> lines = SplitTextIntoLines(text, maxWidth, fontSize);
+
+    int y = startY;
+    for (const std::string& line : lines) {
+        DrawText(line.c_str(), startX, y, fontSize, textColor);
+        y += fontSize + 5;
+    }
+}

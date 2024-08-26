@@ -69,8 +69,8 @@ void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
 
     if (!textBoxEditMode && inputText[0] != '\0') {
         int value = atoi(inputText);
-        tree.transformSteps.clear();  // Clear previous steps
-        tree.insertWithSteps(value);  // Insert with steps recording
+        tree.transformSteps.clear();
+        tree.insertWithSteps(value);
         stepIndexInsertAVL = 0;
         stepbystepModeInsertAVL = true;
         inputText[0] = '\0';  // Reset input
