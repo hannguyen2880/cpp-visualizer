@@ -65,18 +65,49 @@ void Trie::deleteTrie() {
 
 
 //-----------------------------------------------------
-void DrawTrieNode(TrieNode* node, int startX, int endX, int startY, int endY, int depth, bool isDarkMode) {
+void CountNodesAndHeight(TrieNode* node, int depth, int& nodeCount, int& maxDepth) {
     if (!node) return;
+    nodeCount++;
+    maxDepth = std::max(maxDepth, depth);
+    for (auto& child : node->children) {
+        CountNodesAndHeight(child.second, depth + 1, nodeCount, maxDepth);
+    }
+}
+
+void DrawTrieNode(TrieNode* node, int x, int y, int horizontalSpacing, int verticalSpacing, char currentChar, bool isDarkMode) {
+    if (!node) return;
+
     float nodeRadius = 20;
     Color nodeColor = isDarkMode ? SKYBLUE : RED;
     Color textColor = isDarkMode ? WHITE : BLACK;
     Color lineColor = isDarkMode ? GRAY : DARKGRAY;
 
+    int numChildren = node->children.size();
+    int childX = x - horizontalSpacing * (numChildren - 1) / 2;
 
-}
-void DrawTrie(TrieNode* root, int startX, int endX, int startY, int endY, bool isDarkMode) {
-    if (root) {
-        DrawTrieNode(root, startX, endX, startY, endY, 0, isDarkMode);
+    DrawCircle(x, y, nodeRadius, nodeColor);
+    if (currentChar != ' ') {
+        DrawText(TextFormat("%c", currentChar), x - 5, y - 5, 20, textColor);
     }
+    for (auto& child : node->children) {
+        int nextX = childX;
+        int nextY = y + verticalSpacing;
+        DrawLine(x, y + nodeRadius, nextX, nextY - nodeRadius, lineColor);
+        DrawTrieNode(child.second, nextX, nextY, horizontalSpacing / 2, verticalSpacing, child.first, isDarkMode);
+        childX += horizontalSpacing;
+    }
+}
+
+void Trie::drawTrie(int startX, int endX, int startY, int endY, bool isDarkMode) {
+    int initialX = (startX + endX) / 2;
+    int initialY = startY + 50;
+
+    int nodeCount = 0, maxDepth = 0;
+    CountNodesAndHeight(root, 0, nodeCount, maxDepth);
+
+    int horizontalSpacing = (endX - startX) / (root->children.size() + 1);
+    int verticalSpacing = (endY - startY) / (maxDepth + 1);
+
+    DrawTrieNode(root, initialX, initialY, horizontalSpacing, verticalSpacing, ' ', isDarkMode);
 }
 

@@ -23,7 +23,7 @@ public:
     void deleteWord(const std::string& word);
     TrieNode* getRoot() { return root; }
     void deleteTrie();
+    void drawTrie(int startX, int endX, int startY, int endY, bool isDarkMode);
 };
-void DrawTrie(TrieNode* root, int startX, int endX, int startY, int endY, bool isDarkMode);
 
 #endif

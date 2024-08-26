@@ -47,13 +47,54 @@ void Trie_InitOption(bool& chosen, bool isDarkMode, Trie& trie) {
         showEmptyMessTrie = false;
         showRandomMessTrie = false;
     }
+    trie.drawTrie(400, 1400, 60, 720, isDarkMode);
 }
+
+char inputTextTrie[20] = "\0";
+bool textBoxEditModeTrie = false;
+
 void Trie_InsertOption(bool& chosen, bool isDarkMode, Trie& trie) {
 	if (!chosen) return;
+    showEmptyMessTrie = false;
+    showRandomMessTrie = false;
+    showFileMessTrie = false;
+    GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
+    GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    DrawTextInArea("Input string in want to insert in the box.", 30, 380, 420, isDarkMode);
+
+    if (GuiTextBox(Rectangle{ 200, 180, 100, 50 }, inputTextTrie, 200, textBoxEditModeTrie)) {
+        textBoxEditModeTrie = 1 - textBoxEditModeTrie;
+    }
+    if (!textBoxEditModeTrie && inputTextTrie[0] != '\0') {
+        trie.insert(inputTextTrie);
+        inputTextTrie[0] = '\0';
+    }
+    trie.drawTrie(400, 1400, 60, 720, isDarkMode);
 }
 void Trie_DeleteOption(bool& chosen, bool isDarkMode, Trie& trie) {
 	if (!chosen) return;
+    showEmptyMessTrie = false; 
+    showRandomMessTrie = false; 
+    showFileMessTrie = false;
+    GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
+    GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
+    DrawTextInArea("Input string in want to delete in the box.", 30, 380, 420, isDarkMode);
+
+    if (GuiTextBox(Rectangle{ 200, 240, 100, 50 }, inputTextTrie, 200, textBoxEditModeTrie)) {
+        textBoxEditModeTrie = 1 - textBoxEditModeTrie;
+    }
+    if (!textBoxEditModeTrie && inputTextTrie[0] != '\0') {
+        trie.deleteWord(inputTextTrie);
+        inputTextTrie[0] = '\0';
+    }
+    trie.drawTrie(400, 1400, 60, 720, isDarkMode);
+    
 }
 void Trie_SearchOption(bool& chosen, bool isDarkMode, Trie& trie) {
 	if (!chosen) return;
+    showEmptyMessTrie = false;
+    showRandomMessTrie = false;
+    showFileMessTrie = false;
 }

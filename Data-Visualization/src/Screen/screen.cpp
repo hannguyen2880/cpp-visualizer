@@ -355,14 +355,14 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
     Trie_InsertOption(TrieInsertOption, isDarkMode, trie);
 
     if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
-        TrieInsertOption = 1 - TrieInsertOption;
-        if (TrieInsertOption) {
+        TrieDeleteOption = 1 - TrieDeleteOption;
+        if (TrieDeleteOption) {
             TrieInitOption = false;
-            TrieDeleteOption = false;
+            TrieInsertOption = false;
             TrieSearchOption = false;
         }
     }
-    Trie_InsertOption(TrieInsertOption, isDarkMode, trie);
+    Trie_DeleteOption(TrieDeleteOption, isDarkMode, trie);
 
     if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
         TrieSearchOption = 1 - TrieSearchOption;
@@ -385,8 +385,7 @@ void TrieScreen(Screen& currentScreen, bool& isDarkMode) {
         isDarkMode = !isDarkMode;
     }
     // Draw Trie
-    //DrawTrie(trie.getRoot(), 400, 1400, 150, 790, isDarkMode);
-
+    //trie.drawTrie(400, 1400, 60, 720, isDarkMode);
 }
 
 void TrieScreenUnload() {
