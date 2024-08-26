@@ -5,7 +5,9 @@
 #include "raylib.h"
 #include <thread>
 #include <chrono>
-#include "../../Transform.h"
+
+struct AVLStep;
+class AVLState;
 
 struct AVLNode {
     int key, height;
@@ -26,22 +28,54 @@ private:
     int getBalance(AVLNode* N);
     AVLNode* rightRotate(AVLNode* y);
     AVLNode* leftRotate(AVLNode* x);
-    AVLNode* insert_steps(AVLNode* node, int key);
 
 public:
-    std::vector<TransformerAVL> transformSteps;
-    //std::vector<TransformerAVL> transformsavl;
-    //std::vector<TransformerAVL>& transformSteps = transformsavl;
     AVLTree();
     ~AVLTree();
     AVLNode* getRoot();
     void insert(int key);
     void deleteNode(int key);
     AVLNode* searchAVLNode(int key);
+    void searchWithSteps(int value, AVLState& state);
     void deleteAVLTree();
-    void insertWithSteps(int key);
+    void drawTree(int startX, int endX, int startY, int endY, bool isDarkMode);
+    void drawAVLTreeStepByStep(int startX, int endX, int startY, int endY, bool isDarkMode, AVLState& state);
 };
-void DrawAVLTree(AVLNode* root, int startX, int endX, int startY, int endY, bool isDarkMode);
-void DrawAVLTreeWithHighlight(AVLNode* node, int startX, int endX, int startY, int endY, Color nodeColor, Color highlightColor, const std::string& currentStep, bool isDarkMode);
-void DrawAVLAnimation(AVLTree& tree, int stepIndex, int startX, int endX, int startY, int endY, bool isDarkMode);
+
+struct AVLStep {
+    std::string description;
+    AVLNode* highlightedNode;
+};
+
+class AVLState {
+public:
+    std::vector<AVLStep> steps;
+    int currentStep;
+    bool stepByStepMode;
+
+    AVLState() : currentStep(0), stepByStepMode(false) {}
+
+    void addStep(const std::string& description, AVLNode* highlightedNode) {
+        steps.push_back({ description, highlightedNode });
+    }
+
+    void nextStep() {
+        if (currentStep < steps.size() - 1) {
+            currentStep++;
+            //std::cout << "Step: " << currentStep << " - " << steps[currentStep].description << std::endl;
+        }
+    }
+
+    void prevStep() {
+        if (currentStep > 0) {
+            currentStep--;
+            //std::cout << "Step: " << currentStep << " - " << steps[currentStep].description << std::endl;
+        }
+    }
+
+    AVLStep getCurrentStep() {
+        return steps[currentStep];
+    }
+};
+
 #endif

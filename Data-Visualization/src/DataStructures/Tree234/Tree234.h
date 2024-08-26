@@ -50,6 +50,7 @@ public:
     void deleteTree();
     Tree234Node* search(int key);
     void deleteNode(int key);
+    void drawTree234(int startX, int endX, int startY, int endY, bool isDarkMode);
 };
 
 #endif

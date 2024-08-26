@@ -19,8 +19,7 @@ void AVLScreenUnload() {
     UnloadTexture(AVL_background_dark);
 }
 
-//std::vector<TransformerAVL> transformsavl;
-//std::vector<TransformerAVL>& transformsAVL = transformsavl;
+AVLState avlStateSearch;
 
 void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     ClearBackground(isDarkMode ? DARKGRAY : LIGHTGRAY);
@@ -70,7 +69,7 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
             AVLDeleteOption = false;
         }
     }
-    AVL_SearchOption(AVLSearchOption, isDarkMode, AvlTree);
+    AVL_SearchOption(AVLSearchOption, isDarkMode, AvlTree, avlStateSearch);
 
     if (DrawCustomButton(Rectangle{ 10, 10, 100, 50 }, "Back", isDarkMode)) {
         AVLInitOption = false;
@@ -83,7 +82,6 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
-    DrawAVLTree(AvlTree.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
 //------------------TREE234---------------------
 // Tree234
@@ -162,7 +160,6 @@ void Tree234_Screen(Screen& currentScreen, bool& isDarkMode) {
     if (DrawCustomButton(Rectangle{ 200, 10, 150, 50 }, isDarkMode ? "Bright Mode" : "Dark Mode", isDarkMode)) {
         isDarkMode = !isDarkMode;
     }
-    DrawTree234(tree234.getRoot(), 400, 1400, 150, 790, isDarkMode);
 }
 
 // ------------------ HASH TABLE ----------------------

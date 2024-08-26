@@ -8,4 +8,4 @@
 void AVL_InitOption(bool& chosen, bool isDarkMode, AVLTree& tree);
 void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree);
 void AVL_DeleteOption(bool& chosen, bool isDarkMode, AVLTree& tree);
-void AVL_SearchOption(bool& chosen, bool isDarkMode, AVLTree& tree);
+void AVL_SearchOption(bool& chosen, bool isDarkMode, AVLTree& tree, AVLState& state);

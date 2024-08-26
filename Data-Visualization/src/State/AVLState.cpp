@@ -43,15 +43,11 @@ void AVL_InitOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
         showEmptyMess = false;
         showRandomMess = false;
     }
+    //DrawAVLTree(AvlTree.getRoot(), 400, 1400, 150, 790, isDarkMode);
+    tree.drawTree(400, 1400, 150, 790, isDarkMode);
 }
 char inputText[10] = "\0";
 bool textBoxEditMode = false;
-
-//static int stepIndex = 0;
-//static bool stepByStepMode = false;
-
-static int stepIndexInsertAVL = 0;
-static bool stepbystepModeInsertAVL = false;
 
 void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     if (!chosen) return;
@@ -69,40 +65,8 @@ void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
 
     if (!textBoxEditMode && inputText[0] != '\0') {
         int value = atoi(inputText);
-        tree.transformSteps.clear();
-        tree.insertWithSteps(value);
-        stepIndexInsertAVL = 0;
-        stepbystepModeInsertAVL = true;
-        inputText[0] = '\0';  // Reset input
+        inputText[0] = '\0';
     }
-
-    if (stepbystepModeInsertAVL) {
-        if (GuiButton(Rectangle{ 200, 300, 100, 30 }, "Next Step")) {
-            if (stepIndexInsertAVL < tree.transformSteps.size() - 1) ++stepIndexInsertAVL;
-        }
-        if (GuiButton(Rectangle{ 200, 340, 100, 30 }, "Prev Step")) {
-            if (stepIndexInsertAVL > 0) --stepIndexInsertAVL;
-        }
-        tree.transformSteps[stepIndexInsertAVL].Render(isDarkMode);
-        DrawAVLAnimation(tree, stepIndexInsertAVL, 400, 1400, 150, 790, isDarkMode);
-    }
-    /*
-    if (stepbystepModeSearchHash) {
-        if (GuiButton(Rectangle{ 200, 360, 100, 30 }, "Next Step")) {
-            if (stepIndexSearchHash < transformsHash.size() - 1) ++stepIndexSearchHash;
-        }
-        if (GuiButton(Rectangle{ 200, 400, 100, 30 }, "Prev Step")) {
-            if (stepIndexSearchHash > 0) --stepIndexSearchHash;
-        }
-        // Render
-        DrawTextInArea(transformsHash[stepIndexSearchHash].message.c_str(), 30, 380, 600, isDarkMode);
-        std::vector<int> indexs;
-        indexs.push_back(transformsHash[stepIndexSearchHash].index);
-        if (stepIndexSearchHash > 0) hash.FillTableMode(isDarkMode, indexs);
-        else hash.FillTable(isDarkMode);
-    }
-    else hash.FillTable(isDarkMode);
-    */
 }
 
 
@@ -127,7 +91,7 @@ void AVL_DeleteOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     }
 }
 
-void AVL_SearchOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
+void AVL_SearchOption(bool& chosen, bool isDarkMode, AVLTree& tree, AVLState& state) {
     if (!chosen) return;
     showEmptyMess = false;
     showFileMess = false;
@@ -142,7 +106,17 @@ void AVL_SearchOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     }
     if (!textBoxEditMode && inputText[0] != '\0') {
         int value = atoi(inputText);
-        AVLNode* node = tree.searchAVLNode(value);
+        state.stepByStepMode = true;
+        tree.searchWithSteps(value, state);
         inputText[0] = '\0';
     }
+    if (state.stepByStepMode) {
+        tree.drawAVLTreeStepByStep(400, 1400, 150, 790, isDarkMode, state);
+        std::string msg = "Step: " + std::to_string(state.currentStep + 1) + ": " + state.steps[state.currentStep].description;
+        DrawTextInArea3(msg.c_str(), 30, 380, 500, isDarkMode);
+    }
+    else tree.drawTree(400, 1400, 150, 790, isDarkMode);
+
+    if (DrawCustomButton2(Rectangle{ 170, 370, 80, 30 }, "Next", isDarkMode)) state.nextStep();
+    if (DrawCustomButton2(Rectangle{ 270, 370, 80, 30 }, "Prev", isDarkMode)) state.prevStep();
 }

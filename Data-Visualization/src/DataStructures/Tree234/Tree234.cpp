@@ -282,3 +282,41 @@ void Tree234::deleteNode(int key) {
         delete tmp;
     }
 }
+void DrawTree234Node(Tree234Node* node, int x, int y, int startX, int endX, int startY, int endY, bool isDarkMode) {
+    if (!node) return;
+
+    float nodeRadius = 20;
+    Color nodeColor = isDarkMode ? SKYBLUE : RED;
+    Color textColor = isDarkMode ? WHITE : BLACK;
+    Color lineColor = isDarkMode ? GRAY : DARKGRAY;
+
+    int numValues = node->keys.size();
+    int spacingBetweenValues = 30; 
+    int nodeWidth = numValues * (spacingBetweenValues + nodeRadius);
+    int startXPos = x - (nodeWidth - nodeRadius) / 2;
+
+    for (int i = 0; i < numValues; ++i) {
+        int valueX = startXPos + i * (spacingBetweenValues + nodeRadius);
+        DrawCircle(valueX, y, nodeRadius, nodeColor);
+        DrawText(TextFormat("%d", node->keys[i]), valueX - 5, y - 10, 20, textColor);
+    }
+
+    int numChildren = node->children.size();
+    int horizontalSpacing = (endX - startX) / (numChildren + 1);
+    int verticalSpacing = (endY - startY) / 5;
+
+    int childY = y + verticalSpacing;
+    for (int i = 0; i < numChildren; ++i) {
+        if (node->children[i]) {
+            int childX = startX + (i + 1) * (endX - startX) / (numChildren + 1);
+            DrawLine(x, y + nodeRadius, childX, childY - nodeRadius, lineColor);
+            DrawTree234Node(node->children[i], childX, childY, startX, endX, startY, endY, isDarkMode);
+        }
+    }
+}
+
+void Tree234::drawTree234(int startX, int endX, int startY, int endY, bool isDarkMode) {
+    int initialX = (startX + endX) / 2;
+    int initialY = startY;
+    DrawTree234Node(root, initialX, initialY, startX, endX, startY, endY, isDarkMode);
+}

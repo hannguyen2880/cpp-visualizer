@@ -99,9 +99,6 @@
     <ClCompile Include="State\Tree234State.cpp">
       <Filter>State</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructures\Tree234\Tree234_Draw.cpp">
-      <Filter>DataStructures\Tree234</Filter>
-    </ClCompile>
     <ClCompile Include="raygui.c">
       <Filter>src</Filter>
     </ClCompile>
@@ -166,9 +163,6 @@
     </ClInclude>
     <ClInclude Include="State\Tree234State.h">
       <Filter>State</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStructures\Tree234\Tree234_Draw.h">
-      <Filter>DataStructures\Tree234</Filter>
     </ClInclude>
     <ClInclude Include="raygui.h">
       <Filter>src</Filter>
