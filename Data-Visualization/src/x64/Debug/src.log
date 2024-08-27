@@ -1,12 +1,5 @@
-﻿  main.cpp
-  screen.cpp
-  AVLState.cpp
-  GraphState.cpp
-  HashState.cpp
-  HeapState.cpp
-  Tree234State.cpp
-  TrieState.cpp
-  Generating Code...
+﻿  AVLState.cpp
+D:\APCS\CS163\cpp-visualizer\Data-Visualization\src\DataStructures\AVL\AVLTree.h(125): warning C4715: 'AVLStateInsert::getCurrentStep': not all control paths return a value
   src.vcxproj -> D:\APCS\CS163\cpp-visualizer\Data-Visualization\x64\Debug\src.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

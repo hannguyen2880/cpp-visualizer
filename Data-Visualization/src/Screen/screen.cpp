@@ -20,7 +20,8 @@ void AVLScreenUnload() {
 }
 
 AVLState avlStateSearch;
-
+AVLStateInsert avlStateInsert;
+AVLStateDelete avlStateDel;
 void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
     ClearBackground(isDarkMode ? DARKGRAY : LIGHTGRAY);
 
@@ -49,7 +50,7 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
             AVLSearchOption = false;
         }
     }
-    AVL_InsertOption(AVLInsertOption, isDarkMode, AvlTree);
+    AVL_InsertOption(AVLInsertOption, isDarkMode, AvlTree, avlStateInsert);
 
     if (DrawCustomButton(Rectangle{ 0, 240, 150, 50 }, "Delete", isDarkMode)) {
         AVLDeleteOption = 1 - AVLDeleteOption;
@@ -59,7 +60,7 @@ void AVLScreen(Screen& currentScreen, bool& isDarkMode) {
             AVLSearchOption = false;
         }
     }
-    AVL_DeleteOption(AVLDeleteOption, isDarkMode, AvlTree);
+    AVL_DeleteOption(AVLDeleteOption, isDarkMode, AvlTree, avlStateDel);
 
     if (DrawCustomButton(Rectangle{ 0, 300, 150, 50 }, "Search", isDarkMode)) {
         AVLSearchOption = 1 - AVLSearchOption;
