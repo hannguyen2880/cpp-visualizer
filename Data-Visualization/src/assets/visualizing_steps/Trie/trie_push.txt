@@ -1,6 +1,0 @@
-cur = root
-for (char x : str):
-  if (cur->next[x] == NULL):
-    cur->next[x] = new TrieNode()
-  cur = cur->next[x]
-cur->isWord = true  

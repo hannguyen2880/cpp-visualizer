@@ -1,4 +1,0 @@
-if node->found(val): return true
-if node->isLeaf: return false
-p = node->upper(val)
-node = node->child(p)

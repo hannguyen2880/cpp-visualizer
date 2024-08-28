@@ -235,7 +235,19 @@ void Tree234::borrowFromNext(Tree234Node* node, int index) {
     sibling->keys[sibling->keys.size() - 1] = -1;
     sibling->children[sibling->keys.size()] = nullptr;
 }
+int Tree234::getHeight(Tree234Node* node) {
+    if (node == nullptr) return 0;
 
+    int maxHeight = 0;
+    for (Tree234Node* child : node->children) {
+        int childHeight = getHeight(child);
+        if (childHeight > maxHeight) {
+            maxHeight = childHeight;
+        }
+    }
+
+    return maxHeight + 1;
+}
 void Tree234::merge(Tree234Node* node, int index) {
     Tree234Node* child = node->children[index];
     Tree234Node* sibling = node->children[index + 1];
@@ -281,4 +293,41 @@ void Tree234::deleteNode(int key) {
         }
         delete tmp;
     }
+}
+void Tree234::drawTree234Node(Tree234Node* node, int x, int y, int startX, int endX, int startY, int endY, bool isDarkMode) {
+    if (!node) return;
+
+    Color nodeColor = isDarkMode ? SKYBLUE : RED;
+    Color textColor = isDarkMode ? WHITE : BLACK;
+    Color lineColor = isDarkMode ? GRAY : DARKGRAY;
+    int nodeWidth = 40 * node->keys.size();
+    int nodeHeight = 30;
+
+    DrawRectangle(x - nodeWidth / 2, y - nodeHeight / 2, nodeWidth, nodeHeight, nodeColor);
+
+    for (size_t i = 0; i < node->keys.size(); ++i) {
+        DrawText(TextFormat("%d", node->keys[i]), x - nodeWidth / 2 + i * 40 + 10, y - nodeHeight / 2 + 8, 20, textColor);
+    }
+    int totalChildren = node->children.size();
+    if (totalChildren > 0) {
+        int verticalSpacing = (endY - startY) / (getHeight(root) + 1); 
+        int childSpacing = (endX - startX) / (totalChildren + 1); 
+
+        for (size_t i = 0; i < totalChildren; ++i) {
+            if (node->children[i]) {
+                int childX = startX + childSpacing * (i + 1);
+                int childY = y + verticalSpacing;
+
+                DrawLine(x, y + nodeHeight / 2, childX, childY - nodeHeight / 2, lineColor);
+
+                drawTree234Node(node->children[i], childX, childY, startX + i * childSpacing, startX + (i + 1) * childSpacing, y, endY, isDarkMode);
+            }
+        }
+    }
+}
+
+void Tree234::drawTree234(int startX, int endX, int startY, int endY, bool isDarkMode) {
+    if (!root) return;
+    int initialX = (startX + endX) / 2;
+    drawTree234Node(root, initialX, startY, startX, endX, startY, endY, isDarkMode);
 }

@@ -1,5 +1,0 @@
-cur = root
-for (char x : str):
-  if (cur->next[x] == NULL): return false;
-  cur = cur->next[x]
-return cur->isWord

@@ -134,7 +134,6 @@
     <ClCompile Include="DataStructures\Heap\MaxHeap.cpp" />
     <ClCompile Include="DataStructures\Heap\MinHeap.cpp" />
     <ClCompile Include="DataStructures\Tree234\Tree234.cpp" />
-    <ClCompile Include="DataStructures\Tree234\Tree234_Draw.cpp" />
     <ClCompile Include="DataStructures\Trie\Trie.cpp" />
     <ClCompile Include="file_io.cpp" />
     <ClCompile Include="Graphic.cpp" />
@@ -159,7 +158,6 @@
     <ClInclude Include="DataStructures\Heap\MaxHeap.h" />
     <ClInclude Include="DataStructures\Heap\MinHeap.h" />
     <ClInclude Include="DataStructures\Tree234\Tree234.h" />
-    <ClInclude Include="DataStructures\Tree234\Tree234_Draw.h" />
     <ClInclude Include="DataStructures\Trie\Trie.h" />
     <ClInclude Include="file_io.h" />
     <ClInclude Include="Graphic.h" />

@@ -136,7 +136,7 @@ void DrawTextInArea2(const char* text, int startX, int endX, int startY, bool is
 void DrawTextInArea3(const char* text, int startX, int endX, int startY, bool isDarkMode) {
     int maxWidth = endX - startX;
     int fontSize = 20;
-    Color textColor = isDarkMode ? RED : DARKBLUE;
+    Color textColor = isDarkMode ? BLACK : DARKBLUE;
     std::vector<std::string> lines = SplitTextIntoLines(text, maxWidth, fontSize);
 
     int y = startY;

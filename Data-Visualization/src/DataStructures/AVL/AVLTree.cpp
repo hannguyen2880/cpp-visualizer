@@ -1,4 +1,5 @@
-#include "AVLTree.h"
+﻿#include "AVLTree.h"
+#include "../../Graphic.h"
 
 AVLTree::AVLTree() {
     root = nullptr;
@@ -135,62 +136,15 @@ AVLNode* AVLTree::getRoot() {
 void AVLTree::deleteAVLTree() {
     deleteTree(root);
 }
-
-AVLNode* AVLTree::insert_steps(AVLNode* node, int key) {
-    if (node == nullptr) {
-        TransformerAVL insertStep(
-            StepTypeAVL::INSERT, key, 600, "Inserting node " + std::to_string(key), SKYBLUE, WHITE
-        );
-        transformSteps.push_back(insertStep);
-        return new AVLNode(key);
-    }
-    if (key < node->key) {
-        TransformerAVL leftStep(
-            StepTypeAVL::INSERT, node->key, 600, "Going left from node " + std::to_string(node->key), GREEN, WHITE
-        );
-        transformSteps.push_back(leftStep);
-        node->left = insert_steps(node->left, key);
-    }
-    else if (key > node->key) {
-        TransformerAVL rightStep(
-            StepTypeAVL::INSERT, node->key, 600, "Going right from node " + std::to_string(node->key), GREEN, WHITE
-        );
-        transformSteps.push_back(rightStep);
-        node->right = insert_steps(node->right, key);
-    }
-    else {
-        TransformerAVL existStep(
-            StepTypeAVL::INSERT, node->key, 600, "Node " + std::to_string(key) + " already exists", RED, WHITE
-        );
-        transformSteps.push_back(existStep);
-        return node;
-    }
-
-    node->height = 1 + std::max(height(node->left), height(node->right));
-    int balance = getBalance(node);
-
-    if (balance > 1 && key < node->left->key) {
-        TransformerAVL rotateStep(
-            StepTypeAVL::ROTATE, node->key, 600, "Performing right rotation at node " + std::to_string(node->key), RED, YELLOW
-        );
-        transformSteps.push_back(rotateStep);
-        return rightRotate(node);
-    }
-    if (balance < -1 && key > node->right->key) {
-        TransformerAVL rotateStep(
-            StepTypeAVL::ROTATE, node->key, 600, "Performing left rotation at node " + std::to_string(node->key), RED, YELLOW
-        );
-        transformSteps.push_back(rotateStep);
-        return leftRotate(node);
-    }
-
-    return node;
+void countNodesAndHeight(AVLNode* node, int depth, int& nodeCount, int& maxDepth) {
+    if (node == nullptr) return;
+    ++nodeCount;
+    maxDepth = std::max(maxDepth, depth);
+    countNodesAndHeight(node->left, depth + 1, nodeCount, maxDepth);
+    countNodesAndHeight(node->right, depth + 1, nodeCount, maxDepth);
 }
 
-void AVLTree::insertWithSteps(int key) {
-    //steps.clear();
-    root = insert_steps(root, key);
-}
+//---------------DRAW---------------
 
 void DrawAVLTreeRec(AVLNode* node, int x, int y, int startX, int endX, int startY, int endY, bool isDarkMode) {
     if (!node) return;
@@ -217,64 +171,350 @@ void DrawAVLTreeRec(AVLNode* node, int x, int y, int startX, int endX, int start
     DrawText(TextFormat("%d", node->key), x - MeasureText(TextFormat("%d", node->key), 20) / 2, y - 10, 20, textColor);
 }
 
-void DrawAVLTree(AVLNode* root, int startX, int endX, int startY, int endY, bool isDarkMode) {
+void AVLTree::drawTree(int startX, int endX, int startY, int endY, bool isDarkMode) {
     int initialX = (startX + endX) / 2;
     DrawAVLTreeRec(root, initialX, startY, startX, endX, startY, endY, isDarkMode);
 }
+//---------------SEARCHING STEP BY STEP---------------
 
-void DrawAVLTreeWithHighlight(AVLNode* node, int startX, int endX, int startY, int endY, Color nodeColor, Color highlightColor, const std::string& currentStep, bool isDarkMode) {
-    if (!node) return;
+void AVLTree::searchWithSteps(int value, AVLState& state) {
+    AVLNode* currentNode = root;
+    state.steps.clear();
+    state.currentStep = 0;
+    state.stepByStepMode = true;
+    state.addStep("We're searching for node with value: " + std::to_string(value), currentNode);
 
+    while (currentNode != nullptr) {
+        state.addStep("Visiting node with value: " + std::to_string(currentNode->key), currentNode);
+        if (currentNode->key == value) {
+            state.addStep("Found the value: " + std::to_string(value), currentNode);
+            return;
+        }
+        else if (currentNode->key < value) {
+            std::string msg = "Because " + std::to_string(currentNode->key) + " < " + std::to_string(value)
+                + ", we need to going right from this node!";
+            state.addStep(msg, currentNode);
+            currentNode = currentNode->right;
+        }
+        else {
+            std::string msg = "Because " + std::to_string(currentNode->key) + " > " + std::to_string(value)
+                + ", we need to going left from this node!";
+            state.addStep(msg, currentNode);
+            currentNode = currentNode->left;
+        }
+    }
+
+    state.addStep("Value " + std::to_string(value) + " not found in AVL Tree.", nullptr);
+}
+
+void drawAVLNodeHighlighted(AVLNode* node, int x, int y, int startX, int endX, int startY, int endY, bool isDarkMode, AVLNode* highlightedNode) {
+    if (node == nullptr) return;
     float nodeRadius = 20;
+    Color nodeColor = (node == highlightedNode) ? (isDarkMode ? BEIGE : SKYBLUE) : (isDarkMode ? SKYBLUE : RED);
     Color textColor = isDarkMode ? WHITE : BLACK;
     Color lineColor = isDarkMode ? GRAY : DARKGRAY;
-    int x = (startX + endX) / 2;
-    int y = startY + (endY - startY) / 8;
     int childXLeft = (startX + x) / 2;
     int childXRight = (endX + x) / 2;
     int childY = y + (endY - startY) / 8;
 
-    if (currentStep.find("Inserting node " + std::to_string(node->key)) != std::string::npos) {
-        nodeColor = highlightColor;
-    }
-
-    if (node->left) {
+    if (node->left != nullptr) {
         DrawLine(x, y, childXLeft, childY, lineColor);
-        DrawAVLTreeWithHighlight(node->left, startX, x, startY, endY, nodeColor, highlightColor, currentStep, isDarkMode);
+        drawAVLNodeHighlighted(node->left, childXLeft, childY, startX, x, startY, endY, isDarkMode, highlightedNode);
     }
 
-    if (node->right) {
+    if (node->right != nullptr) {
         DrawLine(x, y, childXRight, childY, lineColor);
-        DrawAVLTreeWithHighlight(node->right, x, endX, startY, endY, nodeColor, highlightColor, currentStep, isDarkMode);
+        drawAVLNodeHighlighted(node->right, childXRight, childY, x, endX, startY, endY, isDarkMode, highlightedNode);
     }
 
     DrawCircle(x, y, nodeRadius, nodeColor);
     DrawText(TextFormat("%d", node->key), x - MeasureText(TextFormat("%d", node->key), 20) / 2, y - 10, 20, textColor);
 }
 
-void DrawAVLAnimation(AVLTree& tree, int stepIndex, int startX, int endX, int startY, int endY, bool isDarkMode) {
-    AVLTree tempTree;
-    Color nodeColor = isDarkMode ? SKYBLUE : RED;
-    Color highlightColor = isDarkMode ? YELLOW : GREEN;
-    std::string currentStep = stepIndex < tree.transformSteps.size() ? tree.transformSteps[stepIndex].message : "";
+void AVLTree::drawAVLTreeStepByStep(int startX, int endX, int startY, int endY, bool isDarkMode, AVLState& state) {
+    int initialX = (startX + endX) / 2;
+    AVLStep currentStep = state.getCurrentStep();
+    drawAVLNodeHighlighted(root, initialX, startY, startX, endX, startY, endY, isDarkMode, currentStep.highlightedNode);
+}
+//------------INSERT STEP-BY-STEP
 
-    // Create temporary AVL tree up to the current step
-    for (int i = 0; i <= stepIndex && i < tree.transformSteps.size(); ++i) {
-        std::string step = tree.transformSteps[i].message;
-        if (step.find("Inserting node") != std::string::npos) {
-            int value = std::stoi(step.substr(14));
-            tempTree.insert(value);
+AVLStepType AVLTree::determineRotationType(AVLNode* node, int key) {
+    int balance = getBalance(node);
+
+    if (balance > 1) {
+        if (key < node->left->key) return ROTATE_RIGHT;
+        else return ROTATE_LEFT_RIGHT;
+    }
+
+    if (balance < -1) {
+        if (key > node->right->key) return ROTATE_LEFT;
+        else return ROTATE_RIGHT_LEFT;
+    }
+
+    return NO_ROTATION;
+}
+
+std::string getRotationDescription(AVLStepType rotationType, AVLNode* node) {
+    switch (rotationType) {
+    case ROTATE_LEFT:
+        return "Perform left rotation at node " + std::to_string(node->key);
+    case ROTATE_RIGHT:
+        return "Perform right rotation at node " + std::to_string(node->key);
+    case ROTATE_LEFT_RIGHT:
+        return "Perform left-right rotation at node " + std::to_string(node->key);
+    case ROTATE_RIGHT_LEFT:
+        return "Perform right-left rotation at node " + std::to_string(node->key);
+    default:
+        return "No rotation required";
+    }
+}
+
+AVLNode* AVLTree::insertWithStepsRec(AVLNode* node, int key, AVLNode* parent, AVLStateInsert& state) {
+    if (node == nullptr) {
+        state.addStep("Inserting node " + std::to_string(key), INSERT, nullptr);
+        return new AVLNode(key);
+    }
+
+    if (key < node->key) {
+        state.addStep("Going left from node " + std::to_string(node->key), INSERT, node);
+        node->left = insertWithStepsRec(node->left, key, node, state);
+    }
+    else if (key > node->key) {
+        state.addStep("Going right from node " + std::to_string(node->key), INSERT, node);
+        node->right = insertWithStepsRec(node->right, key, node, state);
+    }
+    else {
+        state.addStep("Key already exists: " + std::to_string(key), INSERT, node);
+        return node;
+    }
+
+    node->height = 1 + std::max(height(node->left), height(node->right));
+    state.addStep("Updated height for node " + std::to_string(node->key) + " to " + std::to_string(node->height), UPDATE_HEIGHT, node);
+
+    int balance = getBalance(node);
+
+    if (balance > 1 || balance < -1) {
+        AVLStepType rotationType = determineRotationType(node, key);
+        if (!state.getCurrentStep().rotationAnnounced) {
+            std::string rotationDesc = getRotationDescription(rotationType, node);
+            rotationDesc = "Tree is not balanced now. " + rotationDesc;
+            state.addStep(rotationDesc, rotationType, node);
+            state.getCurrentStep().rotationAnnounced = true;
+            return node;
         }
-        else if (step.find("Going") != std::string::npos) {
-            // Navigate, no action needed for visualization here
+
+        if (state.rotationInProgress) {
+            switch (rotationType) {
+            case ROTATE_LEFT:
+                node = leftRotate(node);
+                break;
+            case ROTATE_RIGHT:
+                node = rightRotate(node);
+                break;
+            case ROTATE_LEFT_RIGHT:
+                node->left = leftRotate(node->left);
+                node = rightRotate(node);
+                break;
+            case ROTATE_RIGHT_LEFT:
+                node->right = rightRotate(node->right);
+                node = leftRotate(node);
+                break;
+            }
+            state.rotationInProgress = false;
         }
-        else if (step.find("Performing") != std::string::npos) {
-            // Highlight rotations or cases
-            DrawText(step.c_str(), 200, 360, 20, isDarkMode ? WHITE : BLACK);
-            //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+    return node;
+}
+
+
+void AVLTree::insertWithSteps(int key, AVLStateInsert& state) {
+    state.steps.clear();
+    state.currentStep = 0;
+    root = insertWithStepsRec(root, key, nullptr, state);
+}
+
+void DrawAVLTreeRecHighlighted(AVLNode* node, int x, int y, int startX, int endX, int startY, int endY, bool isDarkMode, AVLNode* highlightedNode) {
+    if (!node) return;
+
+    float nodeRadius = 20;
+    Color nodeColor = (node == highlightedNode) ? (isDarkMode ? BEIGE : SKYBLUE) : (isDarkMode ? SKYBLUE : RED);
+    Color textColor = isDarkMode ? WHITE : BLACK;
+    Color lineColor = isDarkMode ? GRAY : DARKGRAY;
+    int childXLeft = (startX + x) / 2;
+    int childXRight = (endX + x) / 2;
+    int childY = y + (endY - startY) / 8;
+
+    if (node->left) {
+        DrawLine(x, y, childXLeft, childY, lineColor);
+        DrawAVLTreeRecHighlighted(node->left, childXLeft, childY, startX, x, startY, endY, isDarkMode, highlightedNode);
+    }
+
+    if (node->right) {
+        DrawLine(x, y, childXRight, childY, lineColor);
+        DrawAVLTreeRecHighlighted(node->right, childXRight, childY, x, endX, startY, endY, isDarkMode, highlightedNode);
+    }
+
+    DrawCircle(x, y, nodeRadius, nodeColor);
+    DrawText(TextFormat("%d", node->key), x - MeasureText(TextFormat("%d", node->key), 20) / 2, y - 10, 20, textColor);
+}
+
+void AVLTree::drawTreeHighlighted(int startX, int endX, int startY, int endY, bool isDarkMode, AVLNode* highlightedNode) {
+    int initialX = (startX + endX) / 2;
+    DrawAVLTreeRecHighlighted(root, initialX, startY, startX, endX, startY, endY, isDarkMode, highlightedNode);
+}
+
+void AVLTree::drawAVLTreeStepByStepInsert(int startX, int endX, int startY, int endY, bool isDarkMode, AVLStateInsert& state) {
+    AVLStepInsert& currentStep = state.getCurrentStep();
+    drawTreeHighlighted(startX, endX, startY, endY, isDarkMode, currentStep.highlightedNode);
+}
+
+void AVLTree::executeRotation(AVLStepInsert& step) {
+    if (step.isRotationStep && step.rotationAnnounced) {
+        switch (step.rotationType) {
+        case ROTATE_LEFT:
+            step.highlightedNode = leftRotate(step.highlightedNode);
+            break;
+        case ROTATE_RIGHT:
+            step.highlightedNode = rightRotate(step.highlightedNode);
+            break;
+        case ROTATE_LEFT_RIGHT:
+            step.highlightedNode->left = leftRotate(step.highlightedNode->left);
+            step.highlightedNode = rightRotate(step.highlightedNode);
+            break;
+        case ROTATE_RIGHT_LEFT:
+            step.highlightedNode->right = rightRotate(step.highlightedNode->right);
+            step.highlightedNode = leftRotate(step.highlightedNode);
+            break;
+        }
+    }
+}
+//----------------------
+AVLStepTypeDelete AVLTree::determineRotationTypeDelete(AVLNode* node) {
+    int balance = getBalance(node);
+
+    if (balance > 1) {
+        if (getBalance(node->left) >= 0) {
+            return ROTATE_RIGHT_DELETE;
+        }
+        else {
+            return ROTATE_LEFT_RIGHT_DELETE;
+        }
+    }
+    else if (balance < -1) { 
+        if (getBalance(node->right) <= 0) {
+            return ROTATE_LEFT_DELETE;
+        }
+        else {
+            return ROTATE_RIGHT_LEFT_DELETE;
+        }
+    }
+    return DELETE;
+}
+std::string getRotationDescriptionDelete(AVLStepTypeDelete rotationType, AVLNode* node) {
+    switch (rotationType) {
+    case ROTATE_LEFT:
+        return "Perform left rotation at node " + std::to_string(node->key);
+    case ROTATE_RIGHT:
+        return "Perform right rotation at node " + std::to_string(node->key);
+    case ROTATE_LEFT_RIGHT:
+        return "Perform left-right rotation at node " + std::to_string(node->key);
+    case ROTATE_RIGHT_LEFT:
+        return "Perform right-left rotation at node " + std::to_string(node->key);
+    default:
+        return "No rotation required";
+    }
+}
+AVLNode* AVLTree::deleteWithStepsRec(AVLNode* node, int key, AVLStateDelete& state) {
+    if (node == nullptr) {
+        state.addStep("Key not found: " + std::to_string(key), DELETE, nullptr);
+        return node;
+    }
+
+    if (key < node->key) {
+        state.addStep("Traversing left from node " + std::to_string(node->key), DELETE, node);
+        node->left = deleteWithStepsRec(node->left, key, state);
+    }
+    else if (key > node->key) {
+        state.addStep("Traversing right from node " + std::to_string(node->key), DELETE, node);
+        node->right = deleteWithStepsRec(node->right, key, state);
+    }
+    else {
+        state.addStep("Deleting node " + std::to_string(key), DELETE, node);
+
+        if ((node->left == nullptr) || (node->right == nullptr)) {
+            AVLNode* temp = node->left ? node->left : node->right;
+
+            if (temp == nullptr) {
+                temp = node;
+                node = nullptr;
+            }
+            else {
+                *node = *temp;
+            }
+            delete temp;
+            state.getCurrentStep().nodeDeleted = true;
+        }
+        else {
+            AVLNode* temp = minValueNode(node->right);
+            node->key = temp->key;
+            state.addStep("Replacing with smallest node from right subtree: " + std::to_string(temp->key), DELETE, node);
+            node->right = deleteWithStepsRec(node->right, temp->key, state);
         }
     }
 
-    // Draw the tree
-    DrawAVLTreeWithHighlight(tempTree.getRoot(), startX, endX, startY, endY, nodeColor, highlightColor, currentStep, isDarkMode);
+    if (node == nullptr) return node;
+
+    node->height = 1 + std::max(height(node->left), height(node->right));
+    state.addStep("Updated height for node " + std::to_string(node->key) + " to " + std::to_string(node->height), UPDATE_HEIGHT_DELETE, node);
+
+    int balance = getBalance(node);
+
+    if (balance > 1 || balance < -1) {
+        AVLStepTypeDelete rotationType = determineRotationTypeDelete(node);
+        if (!state.getCurrentStep().rotationAnnounced) {
+            std::string rotationDesc = getRotationDescriptionDelete(rotationType, node);
+            state.addStep(rotationDesc, ROTATION_DELETE, node);
+            state.getCurrentStep().rotationAnnounced = true;
+            return node;
+        }
+
+        if (state.rotationInProgress) {
+            switch (rotationType) {
+            case ROTATE_LEFT_DELETE:
+                node = leftRotate(node);
+                break;
+            case ROTATE_RIGHT_DELETE:
+                node = rightRotate(node);
+                break;
+            case ROTATE_LEFT_RIGHT_DELETE:
+                node->left = leftRotate(node->left);
+                node = rightRotate(node);
+                break;
+            case ROTATE_RIGHT_LEFT_DELETE:
+                node->right = rightRotate(node->right);
+                node = leftRotate(node);
+                break;
+            }
+            state.rotationInProgress = false;
+        }
+    }
+
+    return node;
+}
+
+void AVLTree::deleteWithSteps(int key, AVLStateDelete& state) {
+    state.steps.clear();
+    state.currentStep = 0;
+    root = deleteWithStepsRec(root, key, state);
+}
+
+void AVLTree::drawAVLTreeStepByStepDelete(int startX, int endX, int startY, int endY, bool isDarkMode, AVLStateDelete& state) {
+    AVLStepDelete& currentStep = state.getCurrentStep();
+    drawTreeHighlighted(startX, endX, startY, endY, isDarkMode, currentStep.node);
+
+    if (currentStep.isRotationStep() && currentStep.rotationInProgress) {
+        std::string rotationMsg = "Performing rotation: " + currentStep.description;
+        DrawTextInArea3(rotationMsg.c_str(), 30, 380, 500, isDarkMode);
+        currentStep.rotationInProgress = false;
+    }
 }

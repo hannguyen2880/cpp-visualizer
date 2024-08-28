@@ -1,4 +1,5 @@
 ﻿#include "AVLState.h"
+#include <iostream>
 bool showEmptyMess = false, showRandomMess = false, showFileMess = false;
 
 
@@ -43,17 +44,12 @@ void AVL_InitOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
         showEmptyMess = false;
         showRandomMess = false;
     }
+    tree.drawTree(400, 1400, 150, 790, isDarkMode);
 }
 char inputText[10] = "\0";
 bool textBoxEditMode = false;
 
-//static int stepIndex = 0;
-//static bool stepByStepMode = false;
-
-static int stepIndexInsertAVL = 0;
-static bool stepbystepModeInsertAVL = false;
-
-void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
+void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree, AVLStateInsert& state) {
     if (!chosen) return;
     showEmptyMess = false;
     showFileMess = false;
@@ -61,7 +57,7 @@ void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
     GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
     GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
-    DrawTextInArea("Input the value in want to insert in the box.", 30, 380, 420, isDarkMode);
+    DrawTextInArea("Input the value you want to insert in the box.", 30, 380, 420, isDarkMode);
 
     if (GuiTextBox(Rectangle{ 200, 180, 100, 50 }, inputText, 200, textBoxEditMode)) {
         textBoxEditMode = 1 - textBoxEditMode;
@@ -69,44 +65,42 @@ void AVL_InsertOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
 
     if (!textBoxEditMode && inputText[0] != '\0') {
         int value = atoi(inputText);
-        tree.transformSteps.clear();
-        tree.insertWithSteps(value);
-        stepIndexInsertAVL = 0;
-        stepbystepModeInsertAVL = true;
-        inputText[0] = '\0';  // Reset input
+        tree.insertWithSteps(value, state);
+        state.stepByStepMode = true;
+        inputText[0] = '\0';
+    }
+    if (state.stepByStepMode) {
+        tree.drawAVLTreeStepByStepInsert(400, 1400, 150, 790, isDarkMode, state);
+        std::string msg = "Step: " + std::to_string(state.currentStep + 1) + ": " + state.steps[state.currentStep].description;
+        DrawTextInArea3(msg.c_str(), 30, 380, 500, isDarkMode);
+    }
+    else tree.drawTree(400, 1400, 150, 790, isDarkMode);
+
+    if (DrawCustomButton2(Rectangle{ 170, 250, 80, 30 }, "Next", isDarkMode)) {
+        if (state.hasNextStep()) {
+            state.nextStep();
+            if (state.getCurrentStep().isRotationStep) {
+                state.rotationInProgress = true;
+            }
+        }
+        if (state.rotationInProgress && state.getCurrentStep().rotationAnnounced) {
+            tree.executeRotation(state.getCurrentStep());
+            state.rotationInProgress = false;
+        }
     }
 
-    if (stepbystepModeInsertAVL) {
-        if (GuiButton(Rectangle{ 200, 300, 100, 30 }, "Next Step")) {
-            if (stepIndexInsertAVL < tree.transformSteps.size() - 1) ++stepIndexInsertAVL;
-        }
-        if (GuiButton(Rectangle{ 200, 340, 100, 30 }, "Prev Step")) {
-            if (stepIndexInsertAVL > 0) --stepIndexInsertAVL;
-        }
-        tree.transformSteps[stepIndexInsertAVL].Render(isDarkMode);
-        DrawAVLAnimation(tree, stepIndexInsertAVL, 400, 1400, 150, 790, isDarkMode);
+    if (DrawCustomButton2(Rectangle{ 270, 250, 80, 30 }, "Prev", isDarkMode)) {
+        state.prevStep();
     }
-    /*
-    if (stepbystepModeSearchHash) {
-        if (GuiButton(Rectangle{ 200, 360, 100, 30 }, "Next Step")) {
-            if (stepIndexSearchHash < transformsHash.size() - 1) ++stepIndexSearchHash;
-        }
-        if (GuiButton(Rectangle{ 200, 400, 100, 30 }, "Prev Step")) {
-            if (stepIndexSearchHash > 0) --stepIndexSearchHash;
-        }
-        // Render
-        DrawTextInArea(transformsHash[stepIndexSearchHash].message.c_str(), 30, 380, 600, isDarkMode);
-        std::vector<int> indexs;
-        indexs.push_back(transformsHash[stepIndexSearchHash].index);
-        if (stepIndexSearchHash > 0) hash.FillTableMode(isDarkMode, indexs);
-        else hash.FillTable(isDarkMode);
+
+    if (state.rotationInProgress && state.getCurrentStep().rotationAnnounced) {
+        tree.executeRotation(state.getCurrentStep());
+        state.rotationInProgress = false;
     }
-    else hash.FillTable(isDarkMode);
-    */
 }
 
 
-void AVL_DeleteOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
+void AVL_DeleteOption(bool& chosen, bool isDarkMode, AVLTree& tree, AVLStateDelete& state) {
     if (!chosen) return;
     showEmptyMess = false;
     showFileMess = false;
@@ -114,7 +108,7 @@ void AVL_DeleteOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
     GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
     GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
-    DrawTextInArea("Input the value in want to delete in the box.", 30, 380, 420, isDarkMode);
+    DrawTextInArea("Input the value you want to delete in the box.", 30, 380, 420, isDarkMode);
 
     if (GuiTextBox(Rectangle{ 200, 240, 100, 50 }, inputText, 200, textBoxEditMode)) {
         textBoxEditMode = 1 - textBoxEditMode;
@@ -122,12 +116,33 @@ void AVL_DeleteOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
 
     if (!textBoxEditMode && inputText[0] != '\0') {
         int value = atoi(inputText);
-        tree.deleteNode(value);
+        tree.deleteWithSteps(value, state);
+        state.stepByStepMode = true;
         inputText[0] = '\0';
+    }
+
+    if (state.stepByStepMode) {
+        tree.drawAVLTreeStepByStepDelete(400, 1400, 150, 790, isDarkMode, state);
+        std::string msg = "Step: " + std::to_string(state.currentStep + 1) + ": " + state.getCurrentStep().description;
+        DrawTextInArea3(msg.c_str(), 30, 380, 500, isDarkMode);
+    }
+    else tree.drawTree(400, 1400, 150, 790, isDarkMode);
+
+    if (DrawCustomButton2(Rectangle{ 170, 310, 80, 30 }, "Next", isDarkMode)) {
+        if (state.hasNextStep()) {
+            state.nextStep();
+            if (state.getCurrentStep().isRotationStep()) {
+                state.getCurrentStep().rotationInProgress = true;
+            }
+        }
+    }
+
+    if (DrawCustomButton2(Rectangle{ 270, 310, 80, 30 }, "Prev", isDarkMode)) {
+        state.prevStep();
     }
 }
 
-void AVL_SearchOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
+void AVL_SearchOption(bool& chosen, bool isDarkMode, AVLTree& tree, AVLState& state) {
     if (!chosen) return;
     showEmptyMess = false;
     showFileMess = false;
@@ -135,14 +150,24 @@ void AVL_SearchOption(bool& chosen, bool isDarkMode, AVLTree& tree) {
     GuiSetStyle(TEXTBOX, BASE_COLOR_NORMAL, ColorToInt(isDarkMode ? DARKGRAY : LIGHTGRAY));
     GuiSetStyle(TEXTBOX, BORDER_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
     GuiSetStyle(TEXTBOX, TEXT_COLOR_NORMAL, ColorToInt(isDarkMode ? RAYWHITE : BLACK));
-    DrawTextInArea("Input the value in want to search in the box.", 30, 380, 420, isDarkMode);
+    DrawTextInArea("Input the value you want to search in the box.", 30, 380, 420, isDarkMode);
 
     if (GuiTextBox(Rectangle{ 200, 300, 100, 50 }, inputText, 200, textBoxEditMode)) {
         textBoxEditMode = 1 - textBoxEditMode;
     }
     if (!textBoxEditMode && inputText[0] != '\0') {
         int value = atoi(inputText);
-        AVLNode* node = tree.searchAVLNode(value);
+        state.stepByStepMode = true;
+        tree.searchWithSteps(value, state);
         inputText[0] = '\0';
     }
+    if (state.stepByStepMode) {
+        tree.drawAVLTreeStepByStep(400, 1400, 150, 790, isDarkMode, state);
+        std::string msg = "Step: " + std::to_string(state.currentStep + 1) + ": " + state.steps[state.currentStep].description;
+        DrawTextInArea3(msg.c_str(), 30, 380, 500, isDarkMode);
+    }
+    else tree.drawTree(400, 1400, 150, 790, isDarkMode);
+
+    if (DrawCustomButton2(Rectangle{ 170, 370, 80, 30 }, "Next", isDarkMode)) state.nextStep();
+    if (DrawCustomButton2(Rectangle{ 270, 370, 80, 30 }, "Prev", isDarkMode)) state.prevStep();
 }

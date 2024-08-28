@@ -19,25 +19,3 @@ public:
         return message;
     }
 };
-enum class StepTypeAVL {
-    INSERT,
-    ROTATE,
-    DELETE,
-    SEARCH
-};
-class TransformerAVL {
-public:
-    StepTypeAVL stepType;    
-    std::string message; 
-    Vector2 posNode;   
-    int startY;      
-    int key;
-    Color nodeColor;
-    Color textColor;
-
-    TransformerAVL(StepTypeAVL type, int key, int startY, const std::string& msg = "",
-        Color nodeClr = SKYBLUE, Color txtClr = WHITE)
-        : stepType(type), key(key), startY(startY), message(msg), nodeColor(nodeClr), textColor(txtClr) {}
-
-    void Render(bool isDarkMode);
-};

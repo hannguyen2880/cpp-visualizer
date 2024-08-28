@@ -41,6 +41,7 @@ private:
     void borrowFromPrev(Tree234Node* node, int index);
     void borrowFromNext(Tree234Node* node, int index);
     void merge(Tree234Node* node, int index);
+    void drawTree234Node(Tree234Node* node, int x, int y, int startX, int endX, int startY, int endY, bool isDarkMode);
 
 public:
     Tree234() : root(nullptr) {}
@@ -50,6 +51,8 @@ public:
     void deleteTree();
     Tree234Node* search(int key);
     void deleteNode(int key);
+    int getHeight(Tree234Node* node);
+    void drawTree234(int startX, int endX, int startY, int endY, bool isDarkMode);
 };
 
 #endif

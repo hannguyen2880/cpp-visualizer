@@ -1,3 +1,0 @@
-int MinHeap::getMin() {
-	return heap.size() ? heap[0] : -1;
-}
