@@ -30,19 +30,19 @@ This application is developed as a part of the CS163 course at FIT, VNU-HCMUS.
 
 ### Menu screen
 Toggle between **light** and **dark themes** for comfortable viewing.
- ![menu](screen_shots\menu_bright.jpg)
- ![menu](screen_shots\menu_dark.jpg)
+ ![menu](screen_shots/menu_bright.jpg)
+ ![menu](screen_shots/menu_dark.jpg)
 
  ### Interactive Step-by-Step Mode and Controls
  - Visualize each operation step-by-step, with the ability to move forward and backward through the steps.
  - Nodes are highlighted during operations to indicate current actions, such as traversal, insertion, or deletion.
  - Use buttons to control the visualization flow, including 'Next' and 'Prev' for stepping through operations.
   
-![menu](screen_shots\avl_overview.jpg)
+![menu](screen_shots/avl_overview.jpg)
 The AVL screen when searching node with value 34:
-![menu](screen_shots\avl_search_sbs.jpg)
+![menu](screen_shots/avl_search_sbs.jpg)
 The Hash Table screen in dark mode:
-![menu](screen_shots\hash_overview_dark.jpg)
+![menu](screen_shots/hash_overview_dark.jpg)
 
 ## Getting Started
 ### Requirement
