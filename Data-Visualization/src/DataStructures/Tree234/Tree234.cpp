@@ -47,7 +47,8 @@ void Tree234::insertNonFull(Tree234Node* node, int key) {
     if (node->isLeaf()) {
         for (int i = 2; i > pos; i--) node->keys[i] = node->keys[i - 1];
         node->keys[pos] = key;
-        if (node->isFull()) split(node);
+        if (node->isFull() && pos == 3) split(node);
+        //node->keys[pos] = key;
     }
     else {
         insertNonFull(node->children[pos], key);
@@ -106,9 +107,7 @@ void Tree234::deleteKey(Tree234Node* node, int key) {
         }
     }
     else {
-        if (node->isLeaf()) {
-            return; // Key không tồn tại trong cây
-        }
+        if (node->isLeaf()) return;
 
         bool isLast = (index == node->keys.size());
 
@@ -280,9 +279,7 @@ void Tree234::merge(Tree234Node* node, int index) {
 
 void Tree234::deleteNode(int key) {
     if (!root) return;
-
     deleteKey(root, key);
-
     if (root->keys.size() == 0) {
         Tree234Node* tmp = root;
         if (root->isLeaf()) {
