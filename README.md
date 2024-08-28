@@ -1,5 +1,5 @@
 # APCS-CS163-Data-Structure
-A comprehensive visualization tool for **various data structures**, including **Hash Tables, AVL Trees, 2-3-4 Trees, Tries, Min Heaps, Max Heaps, and Graphs**. This project aims to provide a clear, interactive, and step-by-step visualization of these data structures to enhance understanding and facilitate learning.
+A comprehensive visualization tool for **various data structures**, including **Hash Table, AVL Tree, 2-3-4 Tree, Trie, Min Heap, Max Heap, and Graph**. This project aims to provide a clear, interactive, and step-by-step visualization of these data structures to enhance understanding and facilitate learning.
 
 This application is developed as a part of the CS163 course at FIT, VNU-HCMUS.
 ## Features
