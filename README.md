@@ -59,7 +59,7 @@ The Hash Table screen in dark mode:
 2. **Build the project:**
    Compile the source code using your preferred C++ compiler. Ensure you link the essential libraries during the compilation process.
 
-### Code Overview
+## Code Overview
 - **`main.cpp`**: The entry point of the application, setting up the interface and initializing visualizations.
 - **`AVLTree.cpp` / `AVLTree.h`**: Implements the AVL tree structure and its visualization logic, including rotations and height updates.
 - **`Tree234.cpp` / `Tree234.h`**: Implements the 2-3-4 tree, handling node splits and merges with visualization.
@@ -68,6 +68,11 @@ The Hash Table screen in dark mode:
 - **`Heap.cpp` / `Heap.h`**: Implements the Min Heap and Max Heap structures with visualization for common heap operations.
 - **`Graph.cpp` / `Graph.h`**: Implements the Graph structure with visualization for graph traversal and minimum spanning tree algorithms.
 - **`screen.cpp` / `screen.h`**: Manages the graphical user interface and interaction logic.
+
+## Future Work
+- **Real-time Tree Transformations:** Implementing real-time transformations for AVL and 2-3-4 trees, allowing users to see how the trees dynamically change with each operation (insert, delete, etc.). This will provide a more intuitive understanding of how these data structures evolve step-by-step.
+- **Animation:** Adding animations for node movements and rotations. These visual cues will make the data structure changes more visually engaging and easier to follow, especially for educational purposes.
+- **Expanded Data Structure Support:** Introducing additional data structures and algorithms, broadening the educational scope and utility of the visualizer.
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
