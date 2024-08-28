@@ -1,6 +1,0 @@
-if node->isFull: split(node)
-if node->found(val): return
-if node->isLeaf: 
-    node->push(val); return
-p = node->upper(val)
-node = node->child(p)

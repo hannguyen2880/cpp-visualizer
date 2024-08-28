@@ -235,7 +235,19 @@ void Tree234::borrowFromNext(Tree234Node* node, int index) {
     sibling->keys[sibling->keys.size() - 1] = -1;
     sibling->children[sibling->keys.size()] = nullptr;
 }
+int Tree234::getHeight(Tree234Node* node) {
+    if (node == nullptr) return 0;
 
+    int maxHeight = 0;
+    for (Tree234Node* child : node->children) {
+        int childHeight = getHeight(child);
+        if (childHeight > maxHeight) {
+            maxHeight = childHeight;
+        }
+    }
+
+    return maxHeight + 1;
+}
 void Tree234::merge(Tree234Node* node, int index) {
     Tree234Node* child = node->children[index];
     Tree234Node* sibling = node->children[index + 1];
@@ -282,41 +294,40 @@ void Tree234::deleteNode(int key) {
         delete tmp;
     }
 }
-void DrawTree234Node(Tree234Node* node, int x, int y, int startX, int endX, int startY, int endY, bool isDarkMode) {
+void Tree234::drawTree234Node(Tree234Node* node, int x, int y, int startX, int endX, int startY, int endY, bool isDarkMode) {
     if (!node) return;
 
-    float nodeRadius = 20;
     Color nodeColor = isDarkMode ? SKYBLUE : RED;
     Color textColor = isDarkMode ? WHITE : BLACK;
     Color lineColor = isDarkMode ? GRAY : DARKGRAY;
+    int nodeWidth = 40 * node->keys.size();
+    int nodeHeight = 30;
 
-    int numValues = node->keys.size();
-    int spacingBetweenValues = 30; 
-    int nodeWidth = numValues * (spacingBetweenValues + nodeRadius);
-    int startXPos = x - (nodeWidth - nodeRadius) / 2;
+    DrawRectangle(x - nodeWidth / 2, y - nodeHeight / 2, nodeWidth, nodeHeight, nodeColor);
 
-    for (int i = 0; i < numValues; ++i) {
-        int valueX = startXPos + i * (spacingBetweenValues + nodeRadius);
-        DrawCircle(valueX, y, nodeRadius, nodeColor);
-        DrawText(TextFormat("%d", node->keys[i]), valueX - 5, y - 10, 20, textColor);
+    for (size_t i = 0; i < node->keys.size(); ++i) {
+        DrawText(TextFormat("%d", node->keys[i]), x - nodeWidth / 2 + i * 40 + 10, y - nodeHeight / 2 + 8, 20, textColor);
     }
+    int totalChildren = node->children.size();
+    if (totalChildren > 0) {
+        int verticalSpacing = (endY - startY) / (getHeight(root) + 1); 
+        int childSpacing = (endX - startX) / (totalChildren + 1); 
 
-    int numChildren = node->children.size();
-    int horizontalSpacing = (endX - startX) / (numChildren + 1);
-    int verticalSpacing = (endY - startY) / 5;
+        for (size_t i = 0; i < totalChildren; ++i) {
+            if (node->children[i]) {
+                int childX = startX + childSpacing * (i + 1);
+                int childY = y + verticalSpacing;
 
-    int childY = y + verticalSpacing;
-    for (int i = 0; i < numChildren; ++i) {
-        if (node->children[i]) {
-            int childX = startX + (i + 1) * (endX - startX) / (numChildren + 1);
-            DrawLine(x, y + nodeRadius, childX, childY - nodeRadius, lineColor);
-            DrawTree234Node(node->children[i], childX, childY, startX, endX, startY, endY, isDarkMode);
+                DrawLine(x, y + nodeHeight / 2, childX, childY - nodeHeight / 2, lineColor);
+
+                drawTree234Node(node->children[i], childX, childY, startX + i * childSpacing, startX + (i + 1) * childSpacing, y, endY, isDarkMode);
+            }
         }
     }
 }
 
 void Tree234::drawTree234(int startX, int endX, int startY, int endY, bool isDarkMode) {
+    if (!root) return;
     int initialX = (startX + endX) / 2;
-    int initialY = startY;
-    DrawTree234Node(root, initialX, initialY, startX, endX, startY, endY, isDarkMode);
+    drawTree234Node(root, initialX, startY, startX, endX, startY, endY, isDarkMode);
 }

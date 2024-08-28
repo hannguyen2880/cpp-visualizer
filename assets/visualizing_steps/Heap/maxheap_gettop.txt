@@ -1,0 +1,3 @@
+int MaxHeap::getMax() {
+	return heap.size() ? heap[0] : -1;
+}

@@ -1,0 +1,9 @@
+bool HashTable::insertItem(int key) {
+    int index = linearProbing(key);
+    if (index == -1) {
+        return false;
+    }
+    table[index] = key;
+    isFilled[index] = true;
+    return true;
+}

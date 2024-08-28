@@ -1,0 +1,18 @@
+bool HashTable::deleteItem(int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+
+    while (isFilled[index] && table[index] != key) {
+        index = (index + 1) % size;
+        if (index == originalIndex) {
+            return false;
+        }
+    }
+
+    if (table[index] == key) {
+        table[index] = -1;
+        isFilled[index] = false;
+        return true;
+    }
+    return false;
+}

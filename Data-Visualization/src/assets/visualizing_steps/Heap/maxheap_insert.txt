@@ -1,2 +1,0 @@
-heap.push_back(key);
-heapifyUp(heap.size() - 1);

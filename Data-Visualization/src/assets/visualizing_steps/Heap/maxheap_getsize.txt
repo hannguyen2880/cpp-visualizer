@@ -1,3 +1,0 @@
-int MaxHeap::getSize() {
-	return heap.size();
-}
